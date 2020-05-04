@@ -12,15 +12,19 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
     @Size(max = 60)
     private String bairro;
 
+    @NotBlank
     @Size(max = 60)
     private String rua;
 
+    @NotBlank
     @Size(max = 20)
     private String numero;
 
+    @NotBlank
     @Size(max = 8)
     private String CEP;
 

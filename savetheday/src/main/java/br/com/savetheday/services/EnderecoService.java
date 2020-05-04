@@ -30,16 +30,22 @@ public class EnderecoService {
 
     @Transactional( rollbackFor = Exception.class )
     public Endereco save(EnderecoDtoInput enderecoDtoInput) {
-        Estado estado = new Estado();
-        estado.setId(null);
-        estado.setNome(enderecoDtoInput.getEstado());
-        estado = estadoRepository.save(estado);
+        Estado estado = estadoRepository.findByNome(enderecoDtoInput.getEstado());
+        if(estado == null){
+            estado = new Estado();
+            estado.setId(null);
+            estado.setNome(enderecoDtoInput.getEstado());
+            estadoRepository.save(estado);
+        }
 
-        Cidade cidade = new Cidade();
-        cidade.setId(null);
-        cidade.setNome(enderecoDtoInput.getCidade());
-        cidade.setEstado(estado);
-        cidade = cidadeRepository.save(cidade);
+        Cidade cidade = cidadeRepository.findByNome(enderecoDtoInput.getCidade());
+        if(cidade == null){
+            cidade = new Cidade();
+            cidade.setId(null);
+            cidade.setNome(enderecoDtoInput.getCidade());
+            cidade.setEstado(estado);
+            cidade = cidadeRepository.save(cidade);
+        }
 
         Endereco endereco = new Endereco();
         endereco.setId(null);

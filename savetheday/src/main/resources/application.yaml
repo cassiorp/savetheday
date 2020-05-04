@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   profiles:
-    active: dev
+    active: teste
 
 ---
 
@@ -22,3 +22,26 @@ spring:
       jdbc:
         lob:
           non_contextual_creation: true
+
+
+---
+
+
+spring:
+  profiles: teste
+  datasource:
+    url: jdbc:mysql://localhost:3306/salveodia?createDatabaseIfNotExist=true&useSSL=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      jdbc:
+        lob:
+          non_contextual_creation: true
+
+

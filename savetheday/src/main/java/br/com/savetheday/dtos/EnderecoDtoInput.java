@@ -4,6 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class EnderecoDtoInput {
+
     @NotBlank
     private String estado;
     @NotBlank
@@ -14,9 +15,7 @@ public class EnderecoDtoInput {
     private String rua;
     @NotBlank
     private String numero;
-
     @NotBlank
-    @Size(max = 8)
     private String CEP;
 
     public String getEstado() {
