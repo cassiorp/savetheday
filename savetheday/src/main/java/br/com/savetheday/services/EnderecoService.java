@@ -32,28 +32,18 @@ public class EnderecoService {
     public Endereco save(EnderecoDtoInput enderecoDtoInput) {
         Estado estado = estadoRepository.findByNome(enderecoDtoInput.getEstado());
         if(estado == null){
-            estado = new Estado();
-            estado.setId(null);
-            estado.setNome(enderecoDtoInput.getEstado());
+            estado = new Estado(null, enderecoDtoInput.getEstado());
             estadoRepository.save(estado);
         }
 
-        Cidade cidade = cidadeRepository.findByNome(enderecoDtoInput.getCidade());
-        if(cidade == null){
-            cidade = new Cidade();
-            cidade.setId(null);
-            cidade.setNome(enderecoDtoInput.getCidade());
-            cidade.setEstado(estado);
+        Cidade cidade = cidadeRepository.findByNomeAndEstado(enderecoDtoInput.getCidade(), estado);
+        if( cidade == null ){
+            cidade = new Cidade(null,enderecoDtoInput.getCidade(), estado );
             cidade = cidadeRepository.save(cidade);
         }
+        Endereco endereco = new Endereco(null, enderecoDtoInput.getBairro(), enderecoDtoInput.getRua(),
+                    enderecoDtoInput.getNumero(), enderecoDtoInput.getCEP(), cidade);
 
-        Endereco endereco = new Endereco();
-        endereco.setId(null);
-        endereco.setBairro(enderecoDtoInput.getBairro());
-        endereco.setRua(enderecoDtoInput.getRua());
-        endereco.setNumero(enderecoDtoInput.getNumero());
-        endereco.setCEP(enderecoDtoInput.getCEP());
-        endereco.setCidade(cidade);
         return enderecoRepository.save(endereco);
     }
 

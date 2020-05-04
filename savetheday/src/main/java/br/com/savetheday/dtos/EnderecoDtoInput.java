@@ -15,7 +15,7 @@ public class EnderecoDtoInput {
     private String rua;
     @NotBlank
     private String numero;
-    @NotBlank
+
     private String CEP;
 
     public String getEstado() {
