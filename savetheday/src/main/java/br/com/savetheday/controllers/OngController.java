@@ -1,7 +1,6 @@
 package br.com.savetheday.controllers;
 
-import br.com.savetheday.dtos.EnderecoDtoInput;
-import br.com.savetheday.entities.Endereco;
+import br.com.savetheday.dtos.OngDtoModel;
 import br.com.savetheday.entities.Ong;
 import br.com.savetheday.services.OngService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,14 @@ public class OngController {
 
     @GetMapping
     @ResponseBody
-    public List<Ong> findAll() {
+    public List<OngDtoModel> findAll() {
         return service.findAll();
+    }
+
+    @GetMapping( value = "/{id}")
+    @ResponseBody
+    public Ong findById(@PathVariable Integer id) {
+        return service.findById(id);
     }
 
 }

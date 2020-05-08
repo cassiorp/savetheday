@@ -1,56 +1,45 @@
-package br.com.savetheday.entities;
+package br.com.savetheday.dtos;
 
+import br.com.savetheday.dtos.EnderecoDtoModel;
+import br.com.savetheday.entities.Categoria;
+import br.com.savetheday.entities.Endereco;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-@Entity
-@Table(name = "ONGS")
-public class Ong {
+public class OngDtoModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
-
-    @NotBlank
-    @Size(max = 120)
     private String nome;
-
-    @NotBlank
-    @Size(max = 120)
     private String sigla;
-
-    @JsonFormat( shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy" )
-    private Date fundacao;
-
-    @CNPJ
-    @NotBlank
-    @Size(max = 18)
+    private String fundacao;
     private String cnpj;
     private String foto;
-
     private String telefone;
-
-    @Email
-    @NotBlank
     private String email;
-
-    @NotBlank
     private String senha;
+    private String categoria;
+    private EnderecoDtoModel endereco;
 
-    @Enumerated(EnumType.STRING)
-    private Categoria categoria;
-
-
-    @OneToOne
-    @JoinColumn(name = "id_endereco")
-    private Endereco endereco;
+    public OngDtoModel(Integer id, String nome, String sigla, String fundacao, String cnpj, String foto, String telefone, String email, String senha, String categoria, EnderecoDtoModel endereco) {
+        this.id = id;
+        this.nome = nome;
+        this.sigla = sigla;
+        this.fundacao = fundacao;
+        this.cnpj = cnpj;
+        this.foto = foto;
+        this.telefone = telefone;
+        this.email = email;
+        this.senha = senha;
+        this.categoria = categoria;
+        this.endereco = endereco;
+    }
 
     public Integer getId() {
         return id;
@@ -76,11 +65,11 @@ public class Ong {
         this.sigla = sigla;
     }
 
-    public Date getFundacao() {
+    public String getFundacao() {
         return fundacao;
     }
 
-    public void setFundacao(Date fundacao) {
+    public void setFundacao(String fundacao) {
         this.fundacao = fundacao;
     }
 
@@ -124,19 +113,19 @@ public class Ong {
         this.senha = senha;
     }
 
-    public Categoria getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
 
-    public Endereco getEndereco() {
+    public EnderecoDtoModel getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(Endereco endereco) {
+    public void setEndereco(EnderecoDtoModel endereco) {
         this.endereco = endereco;
     }
 }

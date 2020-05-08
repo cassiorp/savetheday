@@ -70,16 +70,12 @@ public class EnderecoService {
         return enderecoRepository.existsById(id);
     }
 
-
-
-
-
-    private List<EnderecoDtoModel> toCollectionModel(List<Endereco> enderecos) {
+    public List<EnderecoDtoModel> toCollectionModel(List<Endereco> enderecos) {
         return enderecos.stream()
                 .map(endereco -> toModel(endereco))
                 .collect(Collectors.toList());
     }
-    private EnderecoDtoModel toModel(Endereco endereco) {
+    public EnderecoDtoModel toModel(Endereco endereco) {
         EnderecoDtoModel model = new EnderecoDtoModel(endereco.getId(), endereco.getBairro(),
                                                         endereco.getRua(), endereco.getNumero(),
                                                         endereco.getCEP(), endereco.getCidade().getNome(),

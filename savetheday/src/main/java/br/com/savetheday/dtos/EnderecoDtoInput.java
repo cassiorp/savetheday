@@ -20,6 +20,14 @@ public class EnderecoDtoInput {
 
     private String CEP;
 
+    public EnderecoDtoInput(@NotBlank String estado, @NotBlank String cidade, @NotBlank String bairro, @NotBlank String rua, @NotBlank String numero, String CEP) {
+        this.estado = estado;
+        this.cidade = cidade;
+        this.bairro = bairro;
+        this.rua = rua;
+        this.numero = numero;
+        this.CEP = CEP;
+    }
 
     public String getEstado() {
         return estado;
