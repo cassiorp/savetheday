@@ -1,26 +1,35 @@
 package br.com.savetheday.dtos;
 
-import br.com.savetheday.entities.Conta;
+import br.com.savetheday.entities.Endereco;
+import br.com.savetheday.entities.enums.Categoria;
+import org.hibernate.validator.constraints.Length;
 
-import java.util.List;
+import java.time.LocalDate;
 
-public class OngDtoModel {
+public class OngDto {
 
-    private Integer id;
     private String nome;
-    private String sigla;
-    private String fundacao;
-    private String cnpj;
-    private String foto;
-    private String telefone;
-    private String email;
-    private String senha;
-    private String categoria;
-    private EnderecoDtoModel endereco;
-    private List<Conta> contas;
 
-    public OngDtoModel(Integer id, String nome, String sigla, String fundacao, String cnpj, String foto, String telefone, String email, String senha, String categoria, EnderecoDtoModel endereco, List<Conta> contas) {
-        this.id = id;
+    private String sigla;
+
+    private LocalDate fundacao;
+
+    private String cnpj;
+
+    private String foto;
+
+    private String telefone;
+
+    private String email;
+
+    @Length(min = 6, max = 12)
+    private String senha;
+
+    private Categoria categoria;
+
+    private Endereco endereco;
+
+    public OngDto(String nome, String sigla, LocalDate fundacao, String cnpj, String foto, String telefone, String email, @Length(min = 6, max = 12) String senha, Categoria categoria, Endereco endereco) {
         this.nome = nome;
         this.sigla = sigla;
         this.fundacao = fundacao;
@@ -31,15 +40,6 @@ public class OngDtoModel {
         this.senha = senha;
         this.categoria = categoria;
         this.endereco = endereco;
-        this.contas = contas;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -58,11 +58,11 @@ public class OngDtoModel {
         this.sigla = sigla;
     }
 
-    public String getFundacao() {
+    public LocalDate getFundacao() {
         return fundacao;
     }
 
-    public void setFundacao(String fundacao) {
+    public void setFundacao(LocalDate fundacao) {
         this.fundacao = fundacao;
     }
 
@@ -106,27 +106,19 @@ public class OngDtoModel {
         this.senha = senha;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
-    public EnderecoDtoModel getEndereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(EnderecoDtoModel endereco) {
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
-    }
-
-    public List<Conta> getContas() {
-        return contas;
-    }
-
-    public void setContas(List<Conta> contas) {
-        this.contas = contas;
     }
 }

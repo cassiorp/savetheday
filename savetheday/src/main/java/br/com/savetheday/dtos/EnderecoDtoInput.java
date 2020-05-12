@@ -1,11 +1,8 @@
 package br.com.savetheday.dtos;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 public class EnderecoDtoInput {
-
 
     @NotBlank
     private String estado;

@@ -1,5 +1,6 @@
 package br.com.savetheday.services;
 
+import br.com.savetheday.dtos.OngDto;
 import br.com.savetheday.dtos.OngDtoModel;
 import br.com.savetheday.entities.Endereco;
 import br.com.savetheday.entities.Ong;
@@ -22,7 +23,9 @@ public class OngService {
     EnderecoService enderecoService;
 
     @Transactional( rollbackFor = Exception.class )
-    public Ong save(Ong ong) {
+    public Ong save(OngDto dto) {
+        Ong ong = fromDto(dto);
+
         Ong validaCNPJ = repository.findByCnpj(ong.getCnpj());
         if(validaCNPJ != null){
             throw new RuntimeException("Cnpj ja cadastrado!");
@@ -31,9 +34,9 @@ public class OngService {
         if(validaEmail != null){
             throw new RuntimeException("Email ja cadastrado!");
         }
+
         Endereco endereco = enderecoService.findById(ong.getEndereco().getId());
         ong.setEndereco(endereco);
-
         return repository.save(ong);
     }
 
@@ -47,6 +50,26 @@ public class OngService {
     }
 
 
+    @Transactional( rollbackFor = Exception.class )
+    public Ong update(Integer id, OngDto dto) {
+        Ong obj = fromDto(dto);
+        Ong newObj = findById(id);
+        this.updateData(newObj, obj);
+        return repository.save(newObj);
+    }
+
+    private void updateData(Ong newObj, Ong obj) {
+        newObj.setFundacao(obj.getFundacao() != null ? obj.getFundacao() : newObj.getFundacao());
+        newObj.setCnpj(obj.getCnpj() != null ? obj.getCnpj() : newObj.getCnpj());
+        newObj.setTelefone(obj.getTelefone() != null ? obj.getTelefone() : newObj.getTelefone());
+        newObj.setEndereco(obj.getEndereco() != null ? obj.getEndereco() : newObj.getEndereco());
+        newObj.setNome(obj.getNome() != null ? obj.getNome() : newObj.getNome());
+        newObj.setSenha(obj.getSenha() != null ? obj.getSenha() : newObj.getSenha());
+        newObj.setFoto(obj.getFoto() != null ? obj.getFoto() : newObj.getFoto());
+        newObj.setCategoria(obj.getCategoria() != null ? obj.getCategoria() : newObj.getCategoria());
+    }
+
+
     public List<OngDtoModel> toCollectionModel(List<Ong> ongs) {
         return ongs.stream()
                 .map(ong -> toModel(ong))
@@ -57,10 +80,19 @@ public class OngService {
                 ong.getId(), ong.getNome(), ong.getSigla(),
                 ong.getFundacao().toString(),ong.getCnpj(), ong.getFoto(),
                 ong.getTelefone(), ong.getEmail(), ong.getSenha(),
-                ong.getCategoria().toString(),enderecoService.toModel(ong.getEndereco())
+                ong.getCategoria().toString(),enderecoService.toModel(ong.getEndereco()), ong.getContas()
         );
 
         return model;
+    }
+
+
+    public Ong fromDto(OngDto dto) {
+        return new Ong(
+                null, dto.getNome(),dto.getSigla() ,dto.getFundacao(),
+                dto.getCnpj(),dto.getFoto() ,dto.getTelefone(), dto.getEmail(),
+                dto.getSenha(),dto.getCategoria() ,dto.getEndereco()
+        );
     }
 
 }

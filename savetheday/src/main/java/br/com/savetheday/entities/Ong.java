@@ -1,14 +1,17 @@
 package br.com.savetheday.entities;
 
+import br.com.savetheday.entities.enums.Categoria;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ONGS")
@@ -26,8 +29,8 @@ public class Ong {
     @Size(max = 120)
     private String sigla;
 
-    @JsonFormat( shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy" )
-    private Date fundacao;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate fundacao;
 
     @CNPJ
     @NotBlank
@@ -47,10 +50,45 @@ public class Ong {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-
     @OneToOne
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "ong", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Conta> contas = new ArrayList<>();
+
+    public Ong() {
+    }
+
+    public Ong(Integer id, @NotBlank @Size(max = 120) String nome, @NotBlank @Size(max = 120) String sigla, LocalDate fundacao, @CNPJ @NotBlank @Size(max = 18) String cnpj, String foto, String telefone, @Email @NotBlank String email, @NotBlank String senha, Categoria categoria, Endereco endereco, List<Conta> contas) {
+        this.id = id;
+        this.nome = nome;
+        this.sigla = sigla;
+        this.fundacao = fundacao;
+        this.cnpj = cnpj;
+        this.foto = foto;
+        this.telefone = telefone;
+        this.email = email;
+        this.senha = senha;
+        this.categoria = categoria;
+        this.endereco = endereco;
+        this.contas = contas;
+    }
+
+    public Ong(Integer id, @NotBlank @Size(max = 120) String nome, @NotBlank @Size(max = 120) String sigla, LocalDate fundacao, @CNPJ @NotBlank @Size(max = 18) String cnpj, String foto, String telefone, @Email @NotBlank String email, @NotBlank String senha, Categoria categoria, Endereco endereco) {
+        this.id = id;
+        this.nome = nome;
+        this.sigla = sigla;
+        this.fundacao = fundacao;
+        this.cnpj = cnpj;
+        this.foto = foto;
+        this.telefone = telefone;
+        this.email = email;
+        this.senha = senha;
+        this.categoria = categoria;
+        this.endereco = endereco;
+    }
 
     public Integer getId() {
         return id;
@@ -76,11 +114,11 @@ public class Ong {
         this.sigla = sigla;
     }
 
-    public Date getFundacao() {
+    public LocalDate getFundacao() {
         return fundacao;
     }
 
-    public void setFundacao(Date fundacao) {
+    public void setFundacao(LocalDate fundacao) {
         this.fundacao = fundacao;
     }
 
@@ -138,5 +176,13 @@ public class Ong {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public List<Conta> getContas() {
+        return contas;
+    }
+
+    public void setContas(List<Conta> contas) {
+        this.contas = contas;
     }
 }

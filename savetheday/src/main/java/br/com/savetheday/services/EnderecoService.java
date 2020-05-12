@@ -5,16 +5,12 @@ import br.com.savetheday.dtos.EnderecoDtoModel;
 import br.com.savetheday.entities.Cidade;
 import br.com.savetheday.entities.Endereco;
 import br.com.savetheday.entities.Estado;
-import br.com.savetheday.exceptions.EntidadeNaoEncontradaException;
-import br.com.savetheday.repositories.CidadeRepository;
+import br.com.savetheday.services.exceptions.EntidadeNaoEncontradaException;
 import br.com.savetheday.repositories.EnderecoRepository;
-import br.com.savetheday.repositories.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
 

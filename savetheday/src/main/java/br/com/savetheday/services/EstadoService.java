@@ -1,6 +1,5 @@
 package br.com.savetheday.services;
 
-
 import br.com.savetheday.entities.Estado;
 import br.com.savetheday.repositories.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ public class EstadoService {
 
     @Autowired
     private EstadoRepository repository;
-
 
     public Estado defineEstado( String nome ){
         Estado estado = repository.findByNome(nome);

@@ -1,4 +1,4 @@
-package br.com.savetheday.exceptions;
+package br.com.savetheday.services.exceptions;
 
 public class EntidadeNaoEncontradaException extends NegocioException {
 

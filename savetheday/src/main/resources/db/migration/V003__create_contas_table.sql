@@ -1,4 +1,4 @@
-create table contas(
+create table if not exists contas(
 	id int not null primary key auto_increment,
     nomeBanco varchar(60) not null,
     agencia varchar(20) not null,

@@ -3,8 +3,8 @@ package br.com.savetheday.exceptionhandler;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
-import br.com.savetheday.exceptions.EntidadeNaoEncontradaException;
-import br.com.savetheday.exceptions.NegocioException;
+import br.com.savetheday.services.exceptions.EntidadeNaoEncontradaException;
+import br.com.savetheday.services.exceptions.NegocioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice

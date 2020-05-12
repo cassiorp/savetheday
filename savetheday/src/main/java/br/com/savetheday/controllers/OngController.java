@@ -1,7 +1,11 @@
 package br.com.savetheday.controllers;
 
+import br.com.savetheday.dtos.ContaDto;
+import br.com.savetheday.dtos.OngDto;
 import br.com.savetheday.dtos.OngDtoModel;
+import br.com.savetheday.entities.Conta;
 import br.com.savetheday.entities.Ong;
+import br.com.savetheday.services.ContaService;
 import br.com.savetheday.services.OngService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +22,13 @@ public class OngController {
     @Autowired
     private OngService service;
 
+    @Autowired
+    ContaService contaService;
+
     @PostMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public Ong salvar(@Valid @RequestBody Ong ong) {
+    public Ong salvar(@Valid @RequestBody OngDto ong) {
         return service.save(ong);
     }
 
@@ -35,6 +42,19 @@ public class OngController {
     @ResponseBody
     public Ong findById(@PathVariable Integer id) {
         return service.findById(id);
+    }
+
+//    @PutMapping( value = "/{id}")
+//    @ResponseBody
+//    public Ong edit(@Valid @RequestBody OngDtoEdit ongDtoEdit, @PathVariable Integer id){
+//        return service.edit(ongDtoEdit, id);
+//    }
+
+    @PostMapping( value = "/{id}/conta")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
+    public Conta save(@Valid @RequestBody ContaDto conta, @PathVariable Integer id) {
+        return contaService.save(conta, id);
     }
 
 }
