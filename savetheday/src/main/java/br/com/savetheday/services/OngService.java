@@ -58,9 +58,13 @@ public class OngService {
         return toCollectionModel(repository.findAll());
     }
 
+    @Transactional( rollbackFor = Exception.class )
+    public void delete(Integer id){
+        repository.deleteById(id);
+    }
 
     @Transactional( rollbackFor = Exception.class )
-    public Ong update(Integer id, OngDto dto) {
+    public Ong update(OngDto dto, Integer id) {
         Ong obj = fromDto(dto);
         Ong newObj = findById(id);
         this.updateData(newObj, obj);
@@ -70,9 +74,10 @@ public class OngService {
     private void updateData(Ong newObj, Ong obj) {
         newObj.setFundacao(obj.getFundacao() != null ? obj.getFundacao() : newObj.getFundacao());
         newObj.setCnpj(obj.getCnpj() != null ? obj.getCnpj() : newObj.getCnpj());
-        newObj.setTelefone(obj.getTelefone() != null ? obj.getTelefone() : newObj.getTelefone());
+        newObj.setTelefone(obj.getTelefone() != null  ? obj.getTelefone() : newObj.getTelefone());
         newObj.setEndereco(obj.getEndereco() != null ? obj.getEndereco() : newObj.getEndereco());
         newObj.setNome(obj.getNome() != null ? obj.getNome() : newObj.getNome());
+        newObj.setSigla(obj.getSigla() != null ? obj.getSigla() : newObj.getSigla());
         newObj.setSenha(obj.getSenha() != null ? obj.getSenha() : newObj.getSenha());
         newObj.setFoto(obj.getFoto() != null ? obj.getFoto() : newObj.getFoto());
         newObj.setCategoria(obj.getCategoria() != null ? obj.getCategoria() : newObj.getCategoria());

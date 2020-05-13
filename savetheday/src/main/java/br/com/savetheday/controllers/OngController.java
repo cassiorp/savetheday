@@ -44,11 +44,19 @@ public class OngController {
         return service.find(id);
     }
 
-//    @PutMapping( value = "/{id}")
-//    @ResponseBody
-//    public Ong edit(@Valid @RequestBody OngDtoEdit ongDtoEdit, @PathVariable Integer id){
-//        return service.edit(ongDtoEdit, id);
-//    }
+    @PutMapping( value = "/{id}")
+    @ResponseBody
+    public Ong update(@Valid @RequestBody OngDto ongDto, @PathVariable Integer id){
+        return service.update(ongDto, id);
+    }
+
+    @DeleteMapping( value = "/{id}")
+    @ResponseBody
+    public void delete(@Valid @PathVariable Integer id){
+         service.delete(id);
+    }
+
+
 
     @PostMapping( value = "/{id}/conta")
     @ResponseBody

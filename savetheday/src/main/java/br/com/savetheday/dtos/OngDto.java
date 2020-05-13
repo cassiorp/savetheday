@@ -23,7 +23,6 @@ public class OngDto {
 
     private String email;
 
-    @Length(min = 6, max = 12)
     private String senha;
 
     private Categoria categoria;
