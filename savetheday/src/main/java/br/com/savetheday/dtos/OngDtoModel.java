@@ -1,7 +1,5 @@
 package br.com.savetheday.dtos;
 
-import br.com.savetheday.entities.Conta;
-
 import java.util.List;
 
 public class OngDtoModel {
@@ -18,9 +16,9 @@ public class OngDtoModel {
     private String categoria;
     private EnderecoDtoModel endereco;
 
-    private List<Conta> contas;
+    private List<ContaDtoModel> contas;
 
-    public OngDtoModel(Integer id, String nome, String sigla, String fundacao, String cnpj, String foto, String telefone, String email, String senha, String categoria, EnderecoDtoModel endereco, List<Conta> contas) {
+    public OngDtoModel(Integer id, String nome, String sigla, String fundacao, String cnpj, String foto, String telefone, String email, String senha, String categoria, EnderecoDtoModel endereco, List<ContaDtoModel> contas) {
         this.id = id;
         this.nome = nome;
         this.sigla = sigla;
@@ -123,11 +121,11 @@ public class OngDtoModel {
         this.endereco = endereco;
     }
 
-    public List<Conta> getContas() {
+    public List<ContaDtoModel> getContas() {
         return contas;
     }
 
-    public void setContas(List<Conta> contas) {
+    public void setContas(List<ContaDtoModel> contas) {
         this.contas = contas;
     }
 }

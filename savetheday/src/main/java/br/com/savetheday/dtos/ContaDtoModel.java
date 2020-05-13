@@ -1,6 +1,8 @@
 package br.com.savetheday.dtos;
 
-public class ContaDto {
+public class ContaDtoModel {
+
+    private Integer id;
 
     private String nomeBanco;
 
@@ -10,14 +12,20 @@ public class ContaDto {
 
     private String digito;
 
-    private Integer idOng;
-
-    public ContaDto(String nomeBanco, String agencia, String numero, String digito, Integer idOng) {
+    public ContaDtoModel(Integer id, String nomeBanco, String agencia, String numero, String digito) {
+        this.id = id;
         this.nomeBanco = nomeBanco;
         this.agencia = agencia;
         this.numero = numero;
         this.digito = digito;
-        this.idOng = idOng;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNomeBanco() {
@@ -50,13 +58,5 @@ public class ContaDto {
 
     public void setDigito(String digito) {
         this.digito = digito;
-    }
-
-    public Integer getIdOng() {
-        return idOng;
-    }
-
-    public void setIdOng(Integer idOng) {
-        this.idOng = idOng;
     }
 }

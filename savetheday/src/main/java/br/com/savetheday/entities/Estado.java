@@ -1,7 +1,5 @@
 package br.com.savetheday.entities;
 
-
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

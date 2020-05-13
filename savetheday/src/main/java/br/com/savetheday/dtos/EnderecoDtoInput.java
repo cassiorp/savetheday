@@ -1,8 +1,5 @@
 package br.com.savetheday.dtos;
 
-import br.com.savetheday.entities.Ong;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotBlank;
 
 public class EnderecoDtoInput {
@@ -21,7 +18,6 @@ public class EnderecoDtoInput {
     private String CEP;
 
    private Integer idOng;
-
 
     public EnderecoDtoInput(@NotBlank String estado, @NotBlank String cidade, @NotBlank String bairro, @NotBlank String rua, @NotBlank String numero, String CEP, Integer idOng) {
         this.estado = estado;

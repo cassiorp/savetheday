@@ -1,8 +1,6 @@
 package br.com.savetheday.dtos;
 
-import br.com.savetheday.entities.Endereco;
 import br.com.savetheday.entities.enums.Categoria;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;

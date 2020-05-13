@@ -2,11 +2,7 @@ package br.com.savetheday.services;
 
 import br.com.savetheday.dtos.EnderecoDtoInput;
 import br.com.savetheday.dtos.EnderecoDtoModel;
-import br.com.savetheday.entities.Cidade;
-import br.com.savetheday.entities.Endereco;
-import br.com.savetheday.entities.Estado;
-import br.com.savetheday.entities.Ong;
-import br.com.savetheday.repositories.OngRepository;
+import br.com.savetheday.entities.*;
 import br.com.savetheday.services.exceptions.EntidadeNaoEncontradaException;
 import br.com.savetheday.repositories.EnderecoRepository;
 import br.com.savetheday.services.exceptions.OngComEndereco;
@@ -44,7 +40,6 @@ public class EnderecoService {
                     enderecoDtoInput.getNumero(), enderecoDtoInput.getCEP(), cidade, ong);
 
         ong.setEndereco(endereco);
-        ong.setId(enderecoDtoInput.getIdOng());
 
         enderecoRepository.save(endereco);
         ongService.edit(enderecoDtoInput.getIdOng(), ong);
@@ -73,8 +68,13 @@ public class EnderecoService {
     }
 
     @Transactional( rollbackFor = Exception.class )
-    public void delete(Integer id){
+    public Boolean delete(Integer id){
+        Endereco endereco = this.findById(id);
         enderecoRepository.deleteById(id);
+        if(ifExists(id)){
+            return false;
+        }
+        return true;
     }
 
     public Boolean ifExists(Integer id){
@@ -106,6 +106,5 @@ public class EnderecoService {
         endereco.setCEP(enderecoDtoInput.getCEP());
         return endereco;
     }
-
 
 }

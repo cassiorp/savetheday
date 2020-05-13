@@ -50,11 +50,11 @@ public class Ong {
     private Categoria categoria;
 
 
-    @OneToOne(mappedBy = "ong", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "ong", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Endereco endereco;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ong", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ong", cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
     private List<Conta> contas = new ArrayList<>();
 
     public Ong() {

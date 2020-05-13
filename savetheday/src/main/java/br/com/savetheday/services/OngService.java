@@ -4,6 +4,7 @@ import br.com.savetheday.dtos.OngDto;
 import br.com.savetheday.dtos.OngDtoModel;
 import br.com.savetheday.entities.Ong;
 import br.com.savetheday.repositories.OngRepository;
+import br.com.savetheday.services.exceptions.CnpjCadastrado;
 import br.com.savetheday.services.exceptions.EntidadeNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,13 +23,16 @@ public class OngService {
     @Autowired
     EnderecoService enderecoService;
 
+    @Autowired
+    ContaService contaService;
+
     @Transactional( rollbackFor = Exception.class )
     public Ong save(OngDto dto) {
         Ong ong = fromDto(dto);
 
         Ong validaCNPJ = repository.findByCnpj(ong.getCnpj());
         if(validaCNPJ != null){
-            throw new RuntimeException("Cnpj ja cadastrado!");
+            throw new CnpjCadastrado("Cnpj ja cadastrado!");
         }
         Ong validaEmail = repository.findByEmail(ong.getEmail());
         if(validaEmail != null){
@@ -99,7 +103,8 @@ public class OngService {
                 ong.getId(), ong.getNome(), ong.getSigla(),
                 ong.getFundacao().toString(),ong.getCnpj(), ong.getFoto(),
                 ong.getTelefone(), ong.getEmail(), ong.getSenha(),
-                ong.getCategoria().toString(),enderecoService.toModel(ong.getEndereco()), ong.getContas()
+                ong.getCategoria().toString(),enderecoService.toModel(ong.getEndereco()),
+                contaService.toCollectionModel(ong.getContas())
         );
         return model;
     }
