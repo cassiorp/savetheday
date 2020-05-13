@@ -5,8 +5,11 @@ import br.com.savetheday.dtos.EnderecoDtoModel;
 import br.com.savetheday.entities.Cidade;
 import br.com.savetheday.entities.Endereco;
 import br.com.savetheday.entities.Estado;
+import br.com.savetheday.entities.Ong;
+import br.com.savetheday.repositories.OngRepository;
 import br.com.savetheday.services.exceptions.EntidadeNaoEncontradaException;
 import br.com.savetheday.repositories.EnderecoRepository;
+import br.com.savetheday.services.exceptions.OngComEndereco;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,14 +29,26 @@ public class EnderecoService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
+    @Autowired
+    private OngService ongService;
+
     @Transactional( rollbackFor = Exception.class )
     public Endereco save(EnderecoDtoInput enderecoDtoInput) {
+        Ong ong = ongService.findById(enderecoDtoInput.getIdOng());
+        if(ong.getEndereco() != null ){
+            throw new OngComEndereco("Ong Com Enderço ja Cadastrado, Apenas permitido edição!");
+        }
         Estado estado = estadoService.defineEstado(enderecoDtoInput.getEstado());
         Cidade cidade = cidadeService.defineCidade(enderecoDtoInput.getCidade(), estado);
         Endereco endereco = new Endereco(null, enderecoDtoInput.getBairro(), enderecoDtoInput.getRua(),
-                    enderecoDtoInput.getNumero(), enderecoDtoInput.getCEP(), cidade);
+                    enderecoDtoInput.getNumero(), enderecoDtoInput.getCEP(), cidade, ong);
 
-        return enderecoRepository.save(endereco);
+        ong.setEndereco(endereco);
+        ong.setId(enderecoDtoInput.getIdOng());
+
+        enderecoRepository.save(endereco);
+        ongService.edit(enderecoDtoInput.getIdOng(), ong);
+        return endereco;
     }
 
     public Endereco findById(Integer id) {
@@ -72,10 +87,13 @@ public class EnderecoService {
                 .collect(Collectors.toList());
     }
     public EnderecoDtoModel toModel(Endereco endereco) {
+        if(endereco == null){
+            return null;
+        }
         EnderecoDtoModel model = new EnderecoDtoModel(endereco.getId(), endereco.getBairro(),
                                                         endereco.getRua(), endereco.getNumero(),
                                                         endereco.getCEP(), endereco.getCidade().getNome(),
-                                                        endereco.getCidade().getEstado().getNome());
+                                                        endereco.getCidade().getEstado().getNome(), endereco.getOng().getId());
 
         return model;
     }

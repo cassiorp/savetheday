@@ -29,7 +29,6 @@ public class Ong {
     @Size(max = 120)
     private String sigla;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate fundacao;
 
     @CNPJ
@@ -50,8 +49,8 @@ public class Ong {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-    @OneToOne
-    @JoinColumn(name = "id_endereco")
+
+    @OneToOne(mappedBy = "ong", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Endereco endereco;
 
     @JsonIgnore
@@ -76,7 +75,7 @@ public class Ong {
         this.contas = contas;
     }
 
-    public Ong(Integer id, @NotBlank @Size(max = 120) String nome, @NotBlank @Size(max = 120) String sigla, LocalDate fundacao, @CNPJ @NotBlank @Size(max = 18) String cnpj, String foto, String telefone, @Email @NotBlank String email, @NotBlank String senha, Categoria categoria, Endereco endereco) {
+    public Ong(Integer id, @NotBlank @Size(max = 120) String nome, @NotBlank @Size(max = 120) String sigla, LocalDate fundacao, @CNPJ @NotBlank @Size(max = 18) String cnpj, String foto, String telefone, @Email @NotBlank String email, @NotBlank String senha, Categoria categoria) {
         this.id = id;
         this.nome = nome;
         this.sigla = sigla;
@@ -87,7 +86,6 @@ public class Ong {
         this.email = email;
         this.senha = senha;
         this.categoria = categoria;
-        this.endereco = endereco;
     }
 
     public Integer getId() {

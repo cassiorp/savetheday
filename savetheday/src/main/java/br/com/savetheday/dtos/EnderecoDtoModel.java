@@ -9,8 +9,9 @@ public class EnderecoDtoModel {
     private String cep;
     private String cidade;
     private String estado;
+    private Integer idOng;
 
-    public EnderecoDtoModel(Integer idEndereco, String bairro, String rua, String numero, String cep, String cidade, String estado) {
+    public EnderecoDtoModel(Integer idEndereco, String bairro, String rua, String numero, String cep, String cidade, String estado, Integer idOng) {
         this.idEndereco = idEndereco;
         this.bairro = bairro;
         this.rua = rua;
@@ -18,6 +19,7 @@ public class EnderecoDtoModel {
         this.cep = cep;
         this.cidade = cidade;
         this.estado = estado;
+        this.idOng = idOng;
     }
 
     public Integer getIdEndereco() {
@@ -74,5 +76,13 @@ public class EnderecoDtoModel {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Integer getIdOng() {
+        return idOng;
+    }
+
+    public void setIdOng(Integer idOng) {
+        this.idOng = idOng;
     }
 }

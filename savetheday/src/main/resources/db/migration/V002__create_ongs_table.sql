@@ -8,8 +8,5 @@ create table ongs(
     telefone varchar(30) not null,
     email varchar(60) not null,
     senha varchar(20) not null,
-    categoria ENUM('INCLUCAO_DE_PESSOAS_COM_DEFICIENCIA','ASSISTENCIA_SOCIAL', 'CULTURA', 'SAUDE', 'MEIO_AMBIENTE', 'DESENVOLVIMENTO_E_DEFESA_DOS_DIREITOS', 'HABITACAO', 'DIREITOS_DOS_ANIMAIS', 'EDUCACAO_E_PESQUISA'),
-    id_endereco int not null,
-
-    foreign key ( id_endereco ) references enderecos ( id )
+    categoria ENUM('INCLUCAO_DE_PESSOAS_COM_DEFICIENCIA','ASSISTENCIA_SOCIAL', 'CULTURA', 'SAUDE', 'MEIO_AMBIENTE', 'DESENVOLVIMENTO_E_DEFESA_DOS_DIREITOS', 'HABITACAO', 'DIREITOS_DOS_ANIMAIS', 'EDUCACAO_E_PESQUISA')
 );

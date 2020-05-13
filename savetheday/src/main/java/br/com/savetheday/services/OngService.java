@@ -2,9 +2,9 @@ package br.com.savetheday.services;
 
 import br.com.savetheday.dtos.OngDto;
 import br.com.savetheday.dtos.OngDtoModel;
-import br.com.savetheday.entities.Endereco;
 import br.com.savetheday.entities.Ong;
 import br.com.savetheday.repositories.OngRepository;
+import br.com.savetheday.services.exceptions.EntidadeNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,14 +35,23 @@ public class OngService {
             throw new RuntimeException("Email ja cadastrado!");
         }
 
-        Endereco endereco = enderecoService.findById(ong.getEndereco().getId());
-        ong.setEndereco(endereco);
         return repository.save(ong);
     }
 
     public Ong findById(Integer id) {
         Optional<Ong> ong =  repository.findById(id);
+        if(ong == null) {
+            throw new EntidadeNaoEncontradaException("Entidade não encontrada!");
+        }
         return ong.get();
+    }
+
+    public OngDtoModel find(Integer id) {
+        OngDtoModel dto=toModel(this.findById(id));
+        if(dto == null){
+            throw new EntidadeNaoEncontradaException("Entidade não encontrada!");
+        }
+        return dto;
     }
 
     public List<OngDtoModel> findAll() {
@@ -67,8 +76,13 @@ public class OngService {
         newObj.setSenha(obj.getSenha() != null ? obj.getSenha() : newObj.getSenha());
         newObj.setFoto(obj.getFoto() != null ? obj.getFoto() : newObj.getFoto());
         newObj.setCategoria(obj.getCategoria() != null ? obj.getCategoria() : newObj.getCategoria());
+        newObj.setEndereco(obj.getEndereco() != null ? obj.getEndereco() : newObj.getEndereco());
     }
-
+    @Transactional( rollbackFor = Exception.class )
+    public Ong edit(Integer id, Ong ong) {
+        ong.setId(id);
+        return repository.save(ong);
+    }
 
     public List<OngDtoModel> toCollectionModel(List<Ong> ongs) {
         return ongs.stream()
@@ -82,7 +96,6 @@ public class OngService {
                 ong.getTelefone(), ong.getEmail(), ong.getSenha(),
                 ong.getCategoria().toString(),enderecoService.toModel(ong.getEndereco()), ong.getContas()
         );
-
         return model;
     }
 
@@ -91,7 +104,7 @@ public class OngService {
         return new Ong(
                 null, dto.getNome(),dto.getSigla() ,dto.getFundacao(),
                 dto.getCnpj(),dto.getFoto() ,dto.getTelefone(), dto.getEmail(),
-                dto.getSenha(),dto.getCategoria() ,dto.getEndereco()
+                dto.getSenha(),dto.getCategoria()
         );
     }
 

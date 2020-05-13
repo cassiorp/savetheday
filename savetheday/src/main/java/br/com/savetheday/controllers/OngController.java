@@ -28,8 +28,8 @@ public class OngController {
     @PostMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public Ong salvar(@Valid @RequestBody OngDto ong) {
-        return service.save(ong);
+    public Ong salvar(@Valid @RequestBody OngDto dto) {
+        return service.save(dto);
     }
 
     @GetMapping
@@ -40,8 +40,8 @@ public class OngController {
 
     @GetMapping( value = "/{id}")
     @ResponseBody
-    public Ong findById(@PathVariable Integer id) {
-        return service.findById(id);
+    public OngDtoModel find(@PathVariable Integer id) {
+        return service.find(id);
     }
 
 //    @PutMapping( value = "/{id}")

@@ -17,6 +17,7 @@ public class OngDtoModel {
     private String senha;
     private String categoria;
     private EnderecoDtoModel endereco;
+
     private List<Conta> contas;
 
     public OngDtoModel(Integer id, String nome, String sigla, String fundacao, String cnpj, String foto, String telefone, String email, String senha, String categoria, EnderecoDtoModel endereco, List<Conta> contas) {

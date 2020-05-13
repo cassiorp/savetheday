@@ -1,5 +1,7 @@
 package br.com.savetheday.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -32,13 +34,19 @@ public class Endereco {
     @JoinColumn(name="id_cidade")
     private Cidade cidade;
 
-    public Endereco(Integer id, @NotBlank @Size(max = 60) String bairro, @NotBlank @Size(max = 60) String rua, @NotBlank @Size(max = 20) String numero, @NotBlank @Size(max = 8) String CEP, Cidade cidade) {
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name="id_ong")
+    private Ong ong;
+
+    public Endereco(Integer id, @NotBlank @Size(max = 60) String bairro, @NotBlank @Size(max = 60) String rua, @NotBlank @Size(max = 20) String numero, @NotBlank @Size(max = 8) String CEP, Cidade cidade, Ong ong) {
         this.id = id;
         this.bairro = bairro;
         this.rua = rua;
         this.numero = numero;
         this.CEP = CEP;
         this.cidade = cidade;
+        this.ong = ong;
     }
 
     public Endereco() {
@@ -90,5 +98,13 @@ public class Endereco {
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
+    }
+
+    public Ong getOng() {
+        return ong;
+    }
+
+    public void setOng(Ong ong) {
+        this.ong = ong;
     }
 }

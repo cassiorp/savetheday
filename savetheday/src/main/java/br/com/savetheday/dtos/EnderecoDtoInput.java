@@ -1,5 +1,8 @@
 package br.com.savetheday.dtos;
 
+import br.com.savetheday.entities.Ong;
+
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotBlank;
 
 public class EnderecoDtoInput {
@@ -17,13 +20,17 @@ public class EnderecoDtoInput {
 
     private String CEP;
 
-    public EnderecoDtoInput(@NotBlank String estado, @NotBlank String cidade, @NotBlank String bairro, @NotBlank String rua, @NotBlank String numero, String CEP) {
+   private Integer idOng;
+
+
+    public EnderecoDtoInput(@NotBlank String estado, @NotBlank String cidade, @NotBlank String bairro, @NotBlank String rua, @NotBlank String numero, String CEP, Integer idOng) {
         this.estado = estado;
         this.cidade = cidade;
         this.bairro = bairro;
         this.rua = rua;
         this.numero = numero;
         this.CEP = CEP;
+        this.idOng = idOng;
     }
 
     public String getEstado() {
@@ -72,5 +79,13 @@ public class EnderecoDtoInput {
 
     public void setCEP(String CEP) {
         this.CEP = CEP;
+    }
+
+    public Integer getIdOng() {
+        return idOng;
+    }
+
+    public void setIdOng(Integer idOng) {
+        this.idOng = idOng;
     }
 }

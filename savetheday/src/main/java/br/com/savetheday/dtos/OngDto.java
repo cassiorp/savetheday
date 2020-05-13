@@ -2,6 +2,7 @@ package br.com.savetheday.dtos;
 
 import br.com.savetheday.entities.Endereco;
 import br.com.savetheday.entities.enums.Categoria;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
@@ -27,9 +28,8 @@ public class OngDto {
 
     private Categoria categoria;
 
-    private Endereco endereco;
 
-    public OngDto(String nome, String sigla, LocalDate fundacao, String cnpj, String foto, String telefone, String email, @Length(min = 6, max = 12) String senha, Categoria categoria, Endereco endereco) {
+    public OngDto(String nome, String sigla, LocalDate fundacao, String cnpj, String foto, String telefone, String email, @Length(min = 6, max = 12) String senha, Categoria categoria) {
         this.nome = nome;
         this.sigla = sigla;
         this.fundacao = fundacao;
@@ -39,7 +39,6 @@ public class OngDto {
         this.email = email;
         this.senha = senha;
         this.categoria = categoria;
-        this.endereco = endereco;
     }
 
     public String getNome() {
@@ -114,11 +113,4 @@ public class OngDto {
         this.categoria = categoria;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
 }
