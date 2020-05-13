@@ -1,5 +1,6 @@
 package br.com.savetheday.services;
 
+import br.com.savetheday.dtos.ContaDto;
 import br.com.savetheday.dtos.EnderecoDtoInput;
 import br.com.savetheday.entities.Conta;
 import br.com.savetheday.entities.Endereco;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,19 +41,19 @@ public class ContaServiceTest {
 
     @Test
     void sePersistConta(){
+        Ong ong = new Ong(null, "AAPE", "APE", LocalDate.now(), "55.603.575/0001-90", "foto.png", "99999",
+                "email@mail", "senha", Categoria.CULTURA);
+
+        ongRepository.save(ong);
+
         EnderecoDtoInput enderecoDtoInput = new EnderecoDtoInput("RS", "Charqueadas",
-                "Centro", "Boadeseviver", "123", "9674500");
+                "Centro", "Boadeseviver", "123", "9674500", 1);
 
         Endereco endereco = enderecoService.save(enderecoDtoInput);
 
-        Ong ong = new Ong(null, "AAPE", "APE", new Date(), "55.603.575/0001-90", "foto.png", "99999",
-                "email@mail", "senha", Categoria.CULTURA, endereco, null);
+        ContaDto conta = new ContaDto("Banco do Brasil","1159930","0509" ,"02");
 
-        ongService.save(ong);
-
-        Conta conta = new Conta(null, "Banco do Brasil", "0509", "1159930", "02", ong);
-
-        service.save(conta);
+        service.save(conta, ong.getId());
 
         assertEquals(1, ong.getContas().size());
     }

@@ -10,6 +10,13 @@ public class ContaDto {
 
     private String digito;
 
+    public ContaDto(String nomeBanco, String agencia, String numero, String digito) {
+        this.nomeBanco = nomeBanco;
+        this.agencia = agencia;
+        this.numero = numero;
+        this.digito = digito;
+    }
+
     public String getNomeBanco() {
         return nomeBanco;
     }

@@ -27,7 +27,7 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
 	compile "org.flywaydb:flyway-core:6.4.1"
-	compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.7'
+	runtimeOnly 'com.h2database:h2'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
