@@ -15,10 +15,10 @@ public class OngDtoModel {
     private String senha;
     private String categoria;
     private EnderecoDtoModel endereco;
-
     private List<ContaDtoModel> contas;
+    private List<CasoDtoModel> casos;
 
-    public OngDtoModel(Integer id, String nome, String sigla, String fundacao, String cnpj, String foto, String telefone, String email, String senha, String categoria, EnderecoDtoModel endereco, List<ContaDtoModel> contas) {
+    public OngDtoModel(Integer id, String nome, String sigla, String fundacao, String cnpj, String foto, String telefone, String email, String senha, String categoria, EnderecoDtoModel endereco, List<ContaDtoModel> contas, List<CasoDtoModel> casos) {
         this.id = id;
         this.nome = nome;
         this.sigla = sigla;
@@ -31,6 +31,7 @@ public class OngDtoModel {
         this.categoria = categoria;
         this.endereco = endereco;
         this.contas = contas;
+        this.casos = casos;
     }
 
     public Integer getId() {
@@ -127,5 +128,13 @@ public class OngDtoModel {
 
     public void setContas(List<ContaDtoModel> contas) {
         this.contas = contas;
+    }
+
+    public List<CasoDtoModel> getCasos() {
+        return casos;
+    }
+
+    public void setCasos(List<CasoDtoModel> casos) {
+        this.casos = casos;
     }
 }

@@ -57,10 +57,14 @@ public class Ong {
     @OneToMany(mappedBy = "ong", cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
     private List<Conta> contas = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "ong", cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    private List<Caso> casos = new ArrayList<>();
+
     public Ong() {
     }
 
-    public Ong(Integer id, @NotBlank @Size(max = 120) String nome, @NotBlank @Size(max = 120) String sigla, LocalDate fundacao, @CNPJ @NotBlank @Size(max = 18) String cnpj, String foto, String telefone, @Email @NotBlank String email, @NotBlank String senha, Categoria categoria, Endereco endereco, List<Conta> contas) {
+    public Ong(Integer id, @NotBlank @Size(max = 120) String nome, @NotBlank @Size(max = 120) String sigla, LocalDate fundacao, @CNPJ @NotBlank @Size(max = 18) String cnpj, String foto, String telefone, @Email @NotBlank String email, @NotBlank String senha, Categoria categoria, Endereco endereco, List<Conta> contas, List<Caso> casos) {
         this.id = id;
         this.nome = nome;
         this.sigla = sigla;
@@ -73,6 +77,7 @@ public class Ong {
         this.categoria = categoria;
         this.endereco = endereco;
         this.contas = contas;
+        this.casos = casos;
     }
 
     public Ong(Integer id, @NotBlank @Size(max = 120) String nome, @NotBlank @Size(max = 120) String sigla, LocalDate fundacao, @CNPJ @NotBlank @Size(max = 18) String cnpj, String foto, String telefone, @Email @NotBlank String email, @NotBlank String senha, Categoria categoria) {
@@ -182,5 +187,13 @@ public class Ong {
 
     public void setContas(List<Conta> contas) {
         this.contas = contas;
+    }
+
+    public List<Caso> getCasos() {
+        return casos;
+    }
+
+    public void setCasos(List<Caso> casos) {
+        this.casos = casos;
     }
 }

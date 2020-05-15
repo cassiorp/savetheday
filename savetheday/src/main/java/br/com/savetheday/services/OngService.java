@@ -26,6 +26,9 @@ public class OngService {
     @Autowired
     ContaService contaService;
 
+    @Autowired
+    CasoService casoService;
+
     @Transactional( rollbackFor = Exception.class )
     public Ong save(OngDto dto) {
         Ong ong = fromDto(dto);
@@ -104,7 +107,7 @@ public class OngService {
                 ong.getFundacao().toString(),ong.getCnpj(), ong.getFoto(),
                 ong.getTelefone(), ong.getEmail(), ong.getSenha(),
                 ong.getCategoria().toString(),enderecoService.toModel(ong.getEndereco()),
-                contaService.toCollectionModel(ong.getContas())
+                contaService.toCollectionModel(ong.getContas()), casoService.toCollectionModel(ong.getCasos())
         );
         return model;
     }
