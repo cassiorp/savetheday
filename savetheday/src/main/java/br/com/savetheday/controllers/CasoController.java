@@ -38,5 +38,11 @@ public class CasoController {
         return service.update(dto, id);
     }
 
+    @DeleteMapping( value = "/{id}" )
+    @ResponseBody
+    public Boolean delete(@PathVariable Integer id){
+        return service.delete(id);
+    }
+
 
 }

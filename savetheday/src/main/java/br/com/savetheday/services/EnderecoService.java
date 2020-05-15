@@ -70,6 +70,7 @@ public class EnderecoService {
     @Transactional( rollbackFor = Exception.class )
     public Boolean delete(Integer id){
         Endereco endereco = this.findById(id);
+        endereco.setOng(null);
         enderecoRepository.deleteById(id);
         if(ifExists(id)){
             return false;

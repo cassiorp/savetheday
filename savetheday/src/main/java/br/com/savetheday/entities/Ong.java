@@ -26,7 +26,7 @@ public class Ong {
     private String nome;
 
     @NotBlank
-    @Size(max = 120)
+    @Size(max = 20)
     private String sigla;
 
     private LocalDate fundacao;
@@ -37,6 +37,7 @@ public class Ong {
     private String cnpj;
     private String foto;
 
+    @NotBlank
     private String telefone;
 
     @Email
@@ -54,11 +55,11 @@ public class Ong {
     private Endereco endereco;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ong", cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ong", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Conta> contas = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ong", cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ong", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Caso> casos = new ArrayList<>();
 
     public Ong() {

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,20 +40,17 @@ public class OngService {
         if(validaEmail != null){
             throw new RuntimeException("Email ja cadastrado!");
         }
-
         return repository.save(ong);
     }
 
     public Ong findById(Integer id) {
-        Optional<Ong> ong =  repository.findById(id);
-        if(ong == null) {
-            throw new EntidadeNaoEncontradaException("Entidade não encontrada!");
-        }
-        return ong.get();
+        return repository.findById(id)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Ong não encontrada"));
+
     }
 
     public OngDtoModel find(Integer id) {
-        OngDtoModel dto=toModel(this.findById(id));
+        OngDtoModel dto = toModel(this.findById(id));
         if(dto == null){
             throw new EntidadeNaoEncontradaException("Entidade não encontrada!");
         }
@@ -112,7 +108,6 @@ public class OngService {
         return model;
     }
 
-
     public Ong fromDto(OngDto dto) {
         return new Ong(
                 null, dto.getNome(),dto.getSigla() ,dto.getFundacao(),
@@ -120,5 +115,4 @@ public class OngService {
                 dto.getSenha(),dto.getCategoria()
         );
     }
-
 }
