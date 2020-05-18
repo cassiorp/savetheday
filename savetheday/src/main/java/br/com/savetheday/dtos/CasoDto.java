@@ -24,6 +24,13 @@ public class CasoDto {
     @NotNull
     private Integer idOng;
 
+    public CasoDto(@NotBlank String titulo, @NotBlank String descricao, @NotNull Double total, @NotNull Integer idOng) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.total = total;
+        this.idOng = idOng;
+    }
+
     public String getTitulo() {
         return titulo;
     }
