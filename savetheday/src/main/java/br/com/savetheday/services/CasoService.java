@@ -1,9 +1,6 @@
 package br.com.savetheday.services;
 
-import br.com.savetheday.dtos.CasoDto;
-import br.com.savetheday.dtos.CasoDtoModel;
-import br.com.savetheday.dtos.ContaDto;
-import br.com.savetheday.dtos.ContaDtoModel;
+import br.com.savetheday.dtos.*;
 import br.com.savetheday.entities.Caso;
 import br.com.savetheday.entities.Conta;
 import br.com.savetheday.entities.Ong;
@@ -24,6 +21,9 @@ public class CasoService {
 
     @Autowired
     OngService ongService;
+
+    @Autowired
+    SendEmailService sendEmailService;
 
     public Caso save(CasoDto dto){
         Ong ong = ongService.findById(dto.getIdOng());
@@ -63,6 +63,28 @@ public class CasoService {
         return repository.save(newObj);
     }
 
+    public String doacao( ValorDoadoDto dto, Integer id){
+        Caso caso = this.findById(id);
+        Double valor = dto.getValor();
+        Ong ong = ongService.findById(caso.getOng().getId());
+        if(caso.getTotal() >= valor){
+            caso.setColetado(caso.getColetado() + valor);
+            caso.setId(id);
+            repository.save(caso);
+
+            if(caso.getColetado().equals(caso.getTotal())){
+                sendEmailService.enviar(ong.getEmail(), "Caso encerrado", "Gostariamos de informar que conseguimos alcançar o valor desejado! o Caso foi encerrado e deletado da lista de casos da sua ong!");
+                Double total = caso.getTotal();
+                this.delete(id);
+                return "Caso Encerrado, Valor "+total+" foi atingido com sucesso!";
+            }
+        }else{
+            return "Valor excedido";
+        }
+                return "Doado: "+valor;
+    }
+
+
     private void updateData(Caso newObj, Caso obj) {
         newObj.setTitulo(obj.getTitulo() != null ? obj.getTitulo() : newObj.getTitulo());
         newObj.setDescricao(obj.getDescricao() != null ? obj.getDescricao() : newObj.getDescricao());
@@ -85,7 +107,7 @@ public class CasoService {
             return null;
         }
         CasoDtoModel model = new CasoDtoModel(caso.getId(), caso.getTitulo(), caso.getDescricao(), caso.getTotal().toString(),
-                caso.getColetado() == 0 ? caso.getColetado().toString() : "0.00", caso.getStatus().toString());
+                caso.getColetado().toString(), caso.getStatus().toString());
         return model;
     }
 

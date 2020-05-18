@@ -22,3 +22,22 @@ spring:
       jdbc:
         lob:
           non_contextual_creation: true
+
+---
+
+spring:
+  #envio de email
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    username: <seu_email>@gmail.com
+    password: <chave de 16 digitos gerada pelo Google Account>
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          quitwait: false

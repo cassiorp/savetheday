@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class CasoDto {
+
     @NotBlank
     private String titulo;
     @NotBlank

@@ -25,6 +25,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'junit:junit:4.12'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.3.0.RELEASE'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
 	compile "org.flywaydb:flyway-core:6.4.1"
 	runtimeOnly 'com.h2database:h2'
