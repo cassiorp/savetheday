@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,13 +73,13 @@ public class CasoService {
             repository.save(caso);
 
             if(caso.getColetado().equals(caso.getTotal())){
-                sendEmailService.enviar(ong.getEmail(), "Caso encerrado", "Gostariamos de informar que conseguimos alcançar o valor desejado! o Caso foi encerrado e deletado da lista de casos da sua ong!");
+                sendEmailService.enviar(ong.getEmail(), assunto(caso.getTitulo()),mensagem(caso.getTotal()));
                 Double total = caso.getTotal();
                 this.delete(id);
-                return "Caso Encerrado, Valor total de "+total+" foi atingido com sucesso!";
+                doneCaso(total);
             }
         }
-                return "Doado: "+valor;
+                return "Doado: " + NumberFormat.getCurrencyInstance().format(valor);
     }
 
 
@@ -103,8 +104,8 @@ public class CasoService {
         if(caso == null){
             return null;
         }
-        CasoDtoModel model = new CasoDtoModel(caso.getId(), caso.getTitulo(), caso.getDescricao(), caso.getTotal().toString(),
-                caso.getColetado().toString(), caso.getStatus().toString());
+        CasoDtoModel model = new CasoDtoModel(caso.getId(), caso.getTitulo(), caso.getDescricao(),NumberFormat.getCurrencyInstance().format(caso.getTotal()),
+                                                NumberFormat.getCurrencyInstance().format(caso.getColetado()), caso.getStatus().toString());
         return model;
     }
 
@@ -114,6 +115,21 @@ public class CasoService {
                 null, dto.getTitulo(), dto.getDescricao(), dto.getTotal(),dto.getStatusCaso() ,ong
         );
     }
+
+    private String assunto( String titulo ) {
+        return "Caso " + titulo + " encerrado";
+    }
+    private String mensagem( Double total ) {
+        String totalFormatado = NumberFormat.getCurrencyInstance().format(total);
+        return "Gostariamos de informar que conseguimos alcançar o valor desejado! " +
+                "O total arrecadado para seu caso foi de " + totalFormatado + "!" +
+                " Seu caso foi deletado da sua lista da casos, mas você pode cadastras quantos casos precisar.";
+    }
+    private String doneCaso( Double total ){
+        String totalFormatado = NumberFormat.getCurrencyInstance().format(total);
+        return "Caso Encerrado, Valor total de "+totalFormatado+" foi atingido com sucesso!";
+    }
+    
 }
 
 
