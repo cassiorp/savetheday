@@ -1,7 +1,6 @@
 package br.com.savetheday.entities;
 
 import br.com.savetheday.entities.enums.Categoria;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.br.CNPJ;
 
@@ -35,6 +34,7 @@ public class Ong {
     @NotBlank
     @Size(max = 18)
     private String cnpj;
+
     private String foto;
 
     @NotBlank
@@ -50,7 +50,6 @@ public class Ong {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-
     @OneToOne(mappedBy = "ong", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Endereco endereco;
 
@@ -65,7 +64,7 @@ public class Ong {
     public Ong() {
     }
 
-    public Ong(Integer id, @NotBlank @Size(max = 120) String nome, @NotBlank @Size(max = 120) String sigla, LocalDate fundacao, @CNPJ @NotBlank @Size(max = 18) String cnpj, String foto, String telefone, @Email @NotBlank String email, @NotBlank String senha, Categoria categoria, Endereco endereco, List<Conta> contas, List<Caso> casos) {
+    public Ong(Integer id, @NotBlank @Size(max = 120) String nome, @NotBlank @Size(max = 120) String sigla, LocalDate fundacao, @CNPJ @NotBlank @Size(max = 18) String cnpj, String foto, String telefone, @Email @NotBlank String email, @NotBlank String senha,Categoria categoria, Endereco endereco, List<Conta> contas, List<Caso> casos) {
         this.id = id;
         this.nome = nome;
         this.sigla = sigla;

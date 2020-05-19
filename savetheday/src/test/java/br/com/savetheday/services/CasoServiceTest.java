@@ -3,7 +3,6 @@ package br.com.savetheday.services;
 import br.com.savetheday.dtos.CasoDto;
 import br.com.savetheday.dtos.OngDto;
 import br.com.savetheday.entities.Caso;
-import br.com.savetheday.entities.Conta;
 import br.com.savetheday.entities.Ong;
 import br.com.savetheday.entities.enums.Categoria;
 import org.junit.jupiter.api.Test;

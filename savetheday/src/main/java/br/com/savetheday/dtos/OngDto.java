@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -22,12 +21,14 @@ public class OngDto {
     private String sigla;
 
     private LocalDate fundacao;
+
     @CNPJ
     @NotBlank
     @Size(max = 18)
     private String cnpj;
 
     private String foto;
+
     @NotBlank
     private String telefone;
     @NotBlank
@@ -35,6 +36,7 @@ public class OngDto {
     @NotBlank
     @Length(min = 6, max = 12)
     private String senha;
+
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 

@@ -5,7 +5,6 @@ import br.com.savetheday.entities.Endereco;
 import br.com.savetheday.entities.Estado;
 import br.com.savetheday.entities.Ong;
 import br.com.savetheday.entities.enums.Categoria;
-import br.com.savetheday.services.OngService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,7 @@
 package br.com.savetheday.controllers;
 
 import br.com.savetheday.dtos.ContaDto;
-import br.com.savetheday.entities.Conta;;
-import br.com.savetheday.repositories.ContaRepository;
+import br.com.savetheday.entities.Conta;
 import br.com.savetheday.services.ContaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

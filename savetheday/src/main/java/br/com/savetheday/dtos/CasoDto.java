@@ -1,13 +1,9 @@
 package br.com.savetheday.dtos;
 
-import br.com.savetheday.entities.Ong;
 import br.com.savetheday.entities.enums.StatusCaso;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 

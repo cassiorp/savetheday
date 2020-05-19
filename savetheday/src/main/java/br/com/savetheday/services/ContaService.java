@@ -29,15 +29,14 @@ public class ContaService {
     @Transactional( rollbackFor = Exception.class )
     public Conta save(ContaDto dto) {
         Ong ong = ongService.findById(dto.getIdOng());
-        Conta conta = new Conta(null, dto.getNomeBanco(), dto.getAgencia(),dto.getNumero(),
-                dto.getDigito(), ong);
+        Conta conta = new Conta(null, dto.getNomeBanco(), dto.getAgencia(),
+                                    dto.getNumero(),dto.getDigito(), ong);
 
         ong.getContas().add(conta);
 
         repository.save(conta);
         ongService.edit(dto.getIdOng(), ong);
         return conta;
-
     }
 
     public List<ContaDtoModel> findAll() {

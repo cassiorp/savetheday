@@ -98,9 +98,11 @@ public class OngService {
                 .collect(Collectors.toList());
     }
     public OngDtoModel toModel(Ong ong) {
+
         OngDtoModel model = new OngDtoModel(
                 ong.getId(), ong.getNome(), ong.getSigla(),
-                ong.getFundacao().toString(),ong.getCnpj(), ong.getFoto(),
+                ong.getFundacao() == null ? null : ong.getFundacao().toString(),
+                ong.getCnpj(), ong.getFoto(),
                 ong.getTelefone(), ong.getEmail(), ong.getSenha(),
                 ong.getCategoria().toString(),enderecoService.toModel(ong.getEndereco()),
                 contaService.toCollectionModel(ong.getContas()), casoService.toCollectionModel(ong.getCasos())

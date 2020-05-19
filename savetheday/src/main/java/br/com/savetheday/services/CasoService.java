@@ -2,7 +2,6 @@ package br.com.savetheday.services;
 
 import br.com.savetheday.dtos.*;
 import br.com.savetheday.entities.Caso;
-import br.com.savetheday.entities.Conta;
 import br.com.savetheday.entities.Ong;
 import br.com.savetheday.entities.enums.StatusCaso;
 import br.com.savetheday.repositories.CasoRepository;
@@ -67,7 +66,7 @@ public class CasoService {
         Caso caso = this.findById(id);
         Double valor = dto.getValor();
         Ong ong = ongService.findById(caso.getOng().getId());
-        if(caso.getTotal() >= valor){
+        if(valor > 0){
             caso.setColetado(caso.getColetado() + valor);
             caso.setId(id);
             repository.save(caso);
@@ -76,10 +75,8 @@ public class CasoService {
                 sendEmailService.enviar(ong.getEmail(), "Caso encerrado", "Gostariamos de informar que conseguimos alcançar o valor desejado! o Caso foi encerrado e deletado da lista de casos da sua ong!");
                 Double total = caso.getTotal();
                 this.delete(id);
-                return "Caso Encerrado, Valor "+total+" foi atingido com sucesso!";
+                return "Caso Encerrado, Valor total de "+total+" foi atingido com sucesso!";
             }
-        }else{
-            return "Valor excedido";
         }
                 return "Doado: "+valor;
     }
