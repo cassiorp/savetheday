@@ -2,7 +2,7 @@ package br.com.savetheday.dtos;
 
 import java.util.List;
 
-public class OngDtoModel {
+public class OngDtoModelToCaso {
 
     private Integer id;
     private String nome;
@@ -16,9 +16,8 @@ public class OngDtoModel {
     private String categoria;
     private EnderecoDtoModel endereco;
     private List<ContaDtoModel> contas;
-    private List<CasoDtoModelToOng> casos;
 
-    public OngDtoModel(Integer id, String nome, String sigla, String fundacao, String cnpj, String foto, String telefone, String email, String senha, String categoria, EnderecoDtoModel endereco, List<ContaDtoModel> contas, List<CasoDtoModelToOng> casos) {
+    public OngDtoModelToCaso(Integer id, String nome, String sigla, String fundacao, String cnpj, String foto, String telefone, String email, String senha, String categoria, EnderecoDtoModel endereco, List<ContaDtoModel> contas) {
         this.id = id;
         this.nome = nome;
         this.sigla = sigla;
@@ -31,7 +30,6 @@ public class OngDtoModel {
         this.categoria = categoria;
         this.endereco = endereco;
         this.contas = contas;
-        this.casos = casos;
     }
 
     public Integer getId() {
@@ -128,13 +126,5 @@ public class OngDtoModel {
 
     public void setContas(List<ContaDtoModel> contas) {
         this.contas = contas;
-    }
-
-    public List<CasoDtoModelToOng> getCasos() {
-        return casos;
-    }
-
-    public void setCasos(List<CasoDtoModelToOng> casos) {
-        this.casos = casos;
     }
 }

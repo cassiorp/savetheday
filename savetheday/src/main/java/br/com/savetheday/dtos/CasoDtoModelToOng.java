@@ -1,8 +1,6 @@
 package br.com.savetheday.dtos;
 
-
-public class CasoDtoModel {
-
+public class CasoDtoModelToOng {
     private Integer id;
 
     private String titulo;
@@ -15,16 +13,13 @@ public class CasoDtoModel {
 
     private String status;
 
-    private OngDtoModelToCaso ong;
-
-    public CasoDtoModel(Integer id, String titulo, String descricao, String total, String coletado, String status, OngDtoModelToCaso ong) {
+    public CasoDtoModelToOng(Integer id, String titulo, String descricao, String total, String coletado, String status) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.total = total;
         this.coletado = coletado;
         this.status = status;
-        this.ong = ong;
     }
 
     public Integer getId() {
@@ -73,13 +68,5 @@ public class CasoDtoModel {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public OngDtoModelToCaso getOng() {
-        return ong;
-    }
-
-    public void setOng(OngDtoModelToCaso ong) {
-        this.ong = ong;
     }
 }

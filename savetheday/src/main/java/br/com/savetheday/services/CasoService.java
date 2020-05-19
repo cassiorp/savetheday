@@ -40,6 +40,10 @@ public class CasoService {
         return toCollectionModel(repository.findAll());
     }
 
+//    public List<CasoDtoModel> findAllCidade(String cidade){
+//        return toCollectionModel(repository.findByOng(cidade));
+//    }
+
     public Caso findById(Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Caso não encontrado"));
@@ -100,12 +104,27 @@ public class CasoService {
                 .collect(Collectors.toList());
     }
 
+    public List<CasoDtoModelToOng> toCollectionModelOng(List<Caso> casos) {
+        return casos.stream()
+                .map(caso -> toModelOng(caso))
+                .collect(Collectors.toList());
+    }
+
     public CasoDtoModel toModel(Caso caso) {
         if(caso == null){
             return null;
         }
         CasoDtoModel model = new CasoDtoModel(caso.getId(), caso.getTitulo(), caso.getDescricao(),NumberFormat.getCurrencyInstance().format(caso.getTotal()),
-                                                NumberFormat.getCurrencyInstance().format(caso.getColetado()), caso.getStatus().toString());
+                                                NumberFormat.getCurrencyInstance().format(caso.getColetado()), caso.getStatus().toString(),ongService.toModelCaso(caso.getOng()));
+        return model;
+    }
+
+    public CasoDtoModelToOng toModelOng(Caso caso) {
+        if(caso == null){
+            return null;
+        }
+        CasoDtoModelToOng model = new CasoDtoModelToOng(caso.getId(), caso.getTitulo(), caso.getDescricao(),NumberFormat.getCurrencyInstance().format(caso.getTotal()),
+                NumberFormat.getCurrencyInstance().format(caso.getColetado()), caso.getStatus().toString());
         return model;
     }
 

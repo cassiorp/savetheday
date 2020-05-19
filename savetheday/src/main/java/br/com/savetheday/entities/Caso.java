@@ -25,7 +25,7 @@ public class Caso {
     @Enumerated(EnumType.STRING)
     private StatusCaso status;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "id_ong")
     private Ong ong;

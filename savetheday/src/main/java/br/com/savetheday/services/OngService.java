@@ -2,6 +2,7 @@ package br.com.savetheday.services;
 
 import br.com.savetheday.dtos.OngDto;
 import br.com.savetheday.dtos.OngDtoModel;
+import br.com.savetheday.dtos.OngDtoModelToCaso;
 import br.com.savetheday.entities.Ong;
 import br.com.savetheday.repositories.OngRepository;
 import br.com.savetheday.services.exceptions.CnpjCadastrado;
@@ -97,6 +98,13 @@ public class OngService {
                 .map(ong -> toModel(ong))
                 .collect(Collectors.toList());
     }
+
+    public List<OngDtoModelToCaso> toCollectionModelCaso(List<Ong> ongs) {
+        return ongs.stream()
+                .map(ong -> toModelCaso(ong))
+                .collect(Collectors.toList());
+    }
+
     public OngDtoModel toModel(Ong ong) {
 
         OngDtoModel model = new OngDtoModel(
@@ -105,10 +113,24 @@ public class OngService {
                 ong.getCnpj(), ong.getFoto(),
                 ong.getTelefone(), ong.getEmail(), ong.getSenha(),
                 ong.getCategoria().toString(),enderecoService.toModel(ong.getEndereco()),
-                contaService.toCollectionModel(ong.getContas()), casoService.toCollectionModel(ong.getCasos())
+                contaService.toCollectionModel(ong.getContas()), casoService.toCollectionModelOng(ong.getCasos())
         );
         return model;
     }
+
+    public OngDtoModelToCaso toModelCaso(Ong ong) {
+
+        OngDtoModelToCaso model = new OngDtoModelToCaso(
+                ong.getId(), ong.getNome(), ong.getSigla(),
+                ong.getFundacao() == null ? null : ong.getFundacao().toString(),
+                ong.getCnpj(), ong.getFoto(),
+                ong.getTelefone(), ong.getEmail(), ong.getSenha(),
+                ong.getCategoria().toString(),enderecoService.toModel(ong.getEndereco()),
+                contaService.toCollectionModel(ong.getContas())
+        );
+        return model;
+    }
+
 
     public Ong fromDto(OngDto dto) {
         return new Ong(
