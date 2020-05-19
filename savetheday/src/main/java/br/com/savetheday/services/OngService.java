@@ -6,6 +6,7 @@ import br.com.savetheday.dtos.OngDtoModelToCaso;
 import br.com.savetheday.entities.Ong;
 import br.com.savetheday.repositories.OngRepository;
 import br.com.savetheday.services.exceptions.CnpjCadastrado;
+import br.com.savetheday.services.exceptions.EmailCadastrado;
 import br.com.savetheday.services.exceptions.EntidadeNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ public class OngService {
         }
         Ong validaEmail = repository.findByEmail(ong.getEmail());
         if(validaEmail != null){
-            throw new RuntimeException("Email ja cadastrado!");
+            throw new EmailCadastrado("Email ja cadastrado!");
         }
         return repository.save(ong);
     }

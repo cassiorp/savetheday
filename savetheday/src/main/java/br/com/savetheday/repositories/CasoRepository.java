@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CasoRepository extends JpaRepository<Caso, Integer> {
-    List<Caso> findByCidade( String cidade );
+    //List<Caso> findByCidade( String cidade );
 }

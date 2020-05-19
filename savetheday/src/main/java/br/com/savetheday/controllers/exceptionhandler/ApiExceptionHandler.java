@@ -1,10 +1,9 @@
-package br.com.savetheday.exceptionhandler;
+package br.com.savetheday.controllers.exceptionhandler;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
-import br.com.savetheday.services.exceptions.EntidadeNaoEncontradaException;
-import br.com.savetheday.services.exceptions.NegocioException;
+import br.com.savetheday.services.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -18,6 +17,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
@@ -48,9 +49,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
 	}
 
-
-
-	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -83,5 +81,25 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 		return super.handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
 	}
+
+	@ExceptionHandler(CnpjCadastrado.class)
+	public ResponseEntity<StandardError> cnpjCadastrado(CnpjCadastrado e, HttpServletRequest request) {
+		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
+
+	@ExceptionHandler(EmailCadastrado.class)
+	public ResponseEntity<StandardError> emailCadastrado(EmailCadastrado e, HttpServletRequest request) {
+		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
+
+	@ExceptionHandler(OngComEndereco.class)
+	public ResponseEntity<StandardError> ongComEndereco(OngComEndereco e, HttpServletRequest request) {
+		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
+
+
 
 }

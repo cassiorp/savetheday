@@ -1,4 +1,4 @@
-package br.com.savetheday.exceptionhandler;
+package br.com.savetheday.controllers.exceptionhandler;
 
 import java.time.OffsetDateTime;
 import java.util.List;

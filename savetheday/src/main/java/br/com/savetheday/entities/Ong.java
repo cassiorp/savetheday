@@ -2,6 +2,7 @@ package br.com.savetheday.entities;
 
 import br.com.savetheday.entities.enums.Categoria;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.*;
