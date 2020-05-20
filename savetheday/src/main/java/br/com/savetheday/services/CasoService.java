@@ -25,7 +25,7 @@ public class CasoService {
     @Autowired
     SendEmailService sendEmailService;
 
-
+    @Transactional( rollbackFor = Exception.class )
     public Caso save(CasoDto dto){
         Ong ong = ongService.findById(dto.getIdOng());
         String cidade = ong.getEndereco() != null ? ong.getEndereco().getCidade().getNome() : null;
@@ -41,6 +41,7 @@ public class CasoService {
     public List<CasoDtoModel> findAll(){
         return toCollectionModel(repository.findAll());
     }
+
 
     public Caso findById(Integer id) {
         return repository.findById(id)
@@ -69,6 +70,7 @@ public class CasoService {
         return toCollectionModel(repository.findByCidadeContaining(cidade));
     }
 
+    @Transactional( rollbackFor = Exception.class )
     public String doacao( ValorDoadoDto dto, Integer id){
         Caso caso = this.findById(id);
         Double valor = dto.getValor();

@@ -4,6 +4,10 @@ public class ValorDoadoDto {
 
     private Double valor;
 
+    public ValorDoadoDto(Double valor) {
+        this.valor = valor;
+    }
+
     public Double getValor() {
         return valor;
     }
