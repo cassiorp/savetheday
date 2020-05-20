@@ -51,9 +51,4 @@ public class CasoController {
        return service.doacao(dto, id);
     }
 
-//    @GetMapping( value = "/{cidade}")
-//    @ResponseBody
-//    public List<CasoDtoModel> findAllCidade(@PathVariable String cidade){
-//        return service.findAllCidade(cidade);
-//    }
 }
