@@ -1,7 +1,7 @@
 package br.com.savetheday.services;
 
 import br.com.savetheday.dtos.*;
-import br.com.savetheday.entities.Caso;
+import br.com.savetheday.entities.Caso;;
 import br.com.savetheday.entities.Ong;
 import br.com.savetheday.entities.enums.StatusCaso;
 import br.com.savetheday.repositories.CasoRepository;
@@ -25,9 +25,11 @@ public class CasoService {
     @Autowired
     SendEmailService sendEmailService;
 
+
     public Caso save(CasoDto dto){
         Ong ong = ongService.findById(dto.getIdOng());
-        Caso caso = new Caso(null, dto.getTitulo(), dto.getDescricao(), dto.getTotal(), 0.0,StatusCaso.ABERTO, ong);
+        String cidade = ong.getEndereco() != null ? ong.getEndereco().getCidade().getNome() : null;
+        Caso caso = new Caso(null, dto.getTitulo(), dto.getDescricao(), dto.getTotal(), 0.0,StatusCaso.ABERTO,cidade ,ong);
 
         ong.getCasos().add(caso);
 
@@ -39,10 +41,6 @@ public class CasoService {
     public List<CasoDtoModel> findAll(){
         return toCollectionModel(repository.findAll());
     }
-
-//    public List<CasoDtoModel> findAllCidade(String cidade){
-//        return toCollectionModel(repository.findByOng(cidade));
-//    }
 
     public Caso findById(Integer id) {
         return repository.findById(id)
@@ -65,6 +63,10 @@ public class CasoService {
         Caso newObj = this.findById(id);
         this.updateData(newObj, obj);
         return repository.save(newObj);
+    }
+
+    public List<CasoDtoModel> filter( String cidade ){
+        return toCollectionModel(repository.findByCidadeContaining(cidade));
     }
 
     public String doacao( ValorDoadoDto dto, Integer id){

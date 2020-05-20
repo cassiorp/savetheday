@@ -25,6 +25,7 @@ public class Caso {
     @Enumerated(EnumType.STRING)
     private StatusCaso status;
 
+    private String cidade;
 
     @ManyToOne
     @JoinColumn(name = "id_ong")
@@ -43,13 +44,14 @@ public class Caso {
     }
 
 
-    public Caso(Integer id, String titulo, String descricao, Double total, Double coletado, StatusCaso status, Ong ong) {
+    public Caso(Integer id, @NotBlank String titulo, @NotBlank String descricao, @NotNull Double total, Double coletado, StatusCaso status, String cidade, Ong ong) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.total = total;
         this.coletado = coletado;
         this.status = status;
+        this.cidade = cidade;
         this.ong = ong;
     }
 
@@ -107,5 +109,13 @@ public class Caso {
 
     public void setOng(Ong ong) {
         this.ong = ong;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 }
