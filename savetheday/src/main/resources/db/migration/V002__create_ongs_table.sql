@@ -3,10 +3,10 @@ create table ongs(
     nome varchar(120) not null,
     sigla varchar(20) not null,
     fundacao datetime not null,
-    cnpj varchar(18),
+    cnpj varchar(18) not null unique,
     foto varchar(255),
     telefone varchar(30) not null,
-    email varchar(60) not null,
+    email varchar(60) not null unique,
     senha varchar(20) not null,
     categoria ENUM('INCLUCAO_DE_PESSOAS_COM_DEFICIENCIA','ASSISTENCIA_SOCIAL', 'CULTURA', 'SAUDE', 'MEIO_AMBIENTE', 'DESENVOLVIMENTO_E_DEFESA_DOS_DIREITOS', 'HABITACAO', 'DIREITOS_DOS_ANIMAIS', 'EDUCACAO_E_PESQUISA')
 );

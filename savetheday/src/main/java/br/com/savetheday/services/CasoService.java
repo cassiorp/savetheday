@@ -28,8 +28,8 @@ public class CasoService {
     @Transactional( rollbackFor = Exception.class )
     public Caso save(CasoDto dto){
         Ong ong = ongService.findById(dto.getIdOng());
-        String cidade = ong.getEndereco() != null ? ong.getEndereco().getCidade().getNome() : null;
-        Caso caso = new Caso(null, dto.getTitulo(), dto.getDescricao(), dto.getTotal(), 0.0,StatusCaso.ABERTO,cidade ,ong);
+
+        Caso caso = new Caso(null, dto.getTitulo(), dto.getDescricao(), dto.getTotal(), 0.0,StatusCaso.ABERTO,ong);
 
         ong.getCasos().add(caso);
 
@@ -66,8 +66,8 @@ public class CasoService {
         return repository.save(newObj);
     }
 
-    public List<CasoDtoModel> filter( String cidade ){
-        return toCollectionModel(repository.findByCidadeContaining(cidade));
+    public List<CasoDtoModel> filter( String nome ){
+        return toCollectionModel(repository.findByOng_Endereco_Cidade_NomeContaining(nome));
     }
 
     @Transactional( rollbackFor = Exception.class )

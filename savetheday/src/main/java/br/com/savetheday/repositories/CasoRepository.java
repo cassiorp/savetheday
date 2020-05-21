@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface CasoRepository extends JpaRepository<Caso, Integer> {
-    List<Caso> findByCidadeContaining( String cidade );
+    List<Caso> findByOng_Endereco_Cidade_NomeContaining( String nome );
 }
