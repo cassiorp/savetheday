@@ -47,7 +47,7 @@ public class CasoController {
 
     @PutMapping( value = "/doacao/{id}")
     @ResponseBody
-    public String acrescenta(@Valid @RequestBody ValorDoadoDto dto, @PathVariable Integer id){
+    public String doacao(@Valid @RequestBody ValorDoadoDto dto, @PathVariable Integer id){
        return service.doacao(dto, id);
     }
 

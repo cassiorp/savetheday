@@ -15,25 +15,25 @@ import javax.validation.Valid;
 public class ContaController {
 
     @Autowired
-    ContaService contaService;
+    private ContaService service;
 
     @PostMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public Conta save(@Valid @RequestBody ContaDto contaDto) {
-        return contaService.save(contaDto);
+        return service.save(contaDto);
     }
 
     @PutMapping( value = "/{id}")
     @ResponseBody
     public Conta update(@Valid @RequestBody ContaDto contaDto, @PathVariable Integer id){
-        return contaService.update(contaDto, id);
+        return service.update(contaDto, id);
     }
 
     @DeleteMapping( value = "/{id}")
     @ResponseBody
     public Boolean delete(@Valid @PathVariable Integer id){
-         return contaService.delete(id);
+         return service.delete(id);
     }
 
 }

@@ -1,4 +1,4 @@
-package br.com.savetheday.services;
+package br.com.savetheday.servicesImplents.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

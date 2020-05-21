@@ -1,4 +1,4 @@
-package br.com.savetheday.services.exceptions;
+package br.com.savetheday.servicesImplents.exceptions;
 
 public class EmailCadastrado extends RuntimeException {
     public EmailCadastrado(String message) {

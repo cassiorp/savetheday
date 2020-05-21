@@ -1,4 +1,4 @@
-package br.com.savetheday.services;
+package br.com.savetheday.servicesImplents;
 
 import br.com.savetheday.dtos.EnderecoDtoInput;
 import br.com.savetheday.entities.Endereco;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class EnderecoServiceTest {
 
     @Autowired
-    EnderecoService service;
+    EnderecoServiceImpl service;
     @Autowired
     EnderecoRepository repository;
 

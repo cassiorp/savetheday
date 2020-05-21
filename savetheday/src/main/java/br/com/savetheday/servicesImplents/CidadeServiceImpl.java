@@ -1,4 +1,4 @@
-package br.com.savetheday.services;
+package br.com.savetheday.servicesImplents;
 
 import br.com.savetheday.entities.Cidade;
 import br.com.savetheday.entities.Estado;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CidadeService {
+public class CidadeServiceImpl {
 
     @Autowired
     private CidadeRepository repository;

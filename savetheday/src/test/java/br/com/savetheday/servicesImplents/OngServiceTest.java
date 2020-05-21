@@ -1,4 +1,4 @@
-package br.com.savetheday.services;
+package br.com.savetheday.servicesImplents;
 
 import br.com.savetheday.dtos.OngDto;
 import br.com.savetheday.dtos.OngDtoModel;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class OngServiceTest {
 
     @Autowired
-    OngService ongService;
+    OngServiceImpl ongService;
 
     @Autowired
     OngRepository ongRepository;

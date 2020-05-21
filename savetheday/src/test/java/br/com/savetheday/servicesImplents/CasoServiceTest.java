@@ -1,4 +1,4 @@
-package br.com.savetheday.services;
+package br.com.savetheday.servicesImplents;
 
 import br.com.savetheday.dtos.CasoDto;
 import br.com.savetheday.dtos.OngDto;
@@ -22,10 +22,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class CasoServiceTest {
 
     @Autowired
-    CasoService service;
+    CasoServiceImpl service;
 
     @Autowired
-    OngService ongService;
+    OngServiceImpl ongService;
 
     @Transactional
     @Test
