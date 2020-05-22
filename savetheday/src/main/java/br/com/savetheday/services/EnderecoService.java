@@ -7,8 +7,8 @@ import br.com.savetheday.entities.Endereco;
 import java.util.List;
 
 public interface EnderecoService {
-    public Endereco save(EnderecoDtoInput enderecoDtoInput);
+    public Endereco save(EnderecoDtoInput enderecoDtoInput, Integer id);
     public List<EnderecoDtoModel> findAll();
-    public Endereco edit(EnderecoDtoInput enderecoDtoInput, Integer id);
-    public Boolean delete(Integer id);
+    public Endereco edit(EnderecoDtoInput enderecoDtoInput, Integer idOng, Integer idEnd);
+    public Boolean delete(Integer idOng, Integer idEnd);
 }

@@ -4,6 +4,7 @@ import br.com.savetheday.dtos.EnderecoDtoInput;
 import br.com.savetheday.dtos.EnderecoDtoModel;
 import br.com.savetheday.entities.*;
 import br.com.savetheday.services.EnderecoService;
+import br.com.savetheday.servicesImplents.exceptions.EnderecoNaoConrresponde;
 import br.com.savetheday.servicesImplents.exceptions.EntidadeNaoEncontradaException;
 import br.com.savetheday.repositories.EnderecoRepository;
 import br.com.savetheday.servicesImplents.exceptions.OngComEndereco;
@@ -31,8 +32,8 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     @Transactional( rollbackFor = Exception.class )
     @Override
-    public Endereco save(EnderecoDtoInput enderecoDtoInput) {
-        Ong ong = ongService.findById(enderecoDtoInput.getIdOng());
+    public Endereco save(EnderecoDtoInput enderecoDtoInput, Integer id) {
+        Ong ong = ongService.findById(id);
         if(ong.getEndereco() != null ){
             throw new OngComEndereco("Ong Com Enderço ja Cadastrado, Apenas permitido edição!");
         }
@@ -44,7 +45,7 @@ public class EnderecoServiceImpl implements EnderecoService {
         ong.setEndereco(endereco);
 
         enderecoRepository.save(endereco);
-        ongService.edit(enderecoDtoInput.getIdOng(), ong);
+        ongService.edit(id, ong);
         return endereco;
     }
 
@@ -60,11 +61,13 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     @Transactional( rollbackFor = Exception.class )
     @Override
-    public Endereco edit(EnderecoDtoInput enderecoDtoInput, Integer id) {
-        if(!enderecoRepository.existsById(id)){
-            throw new RuntimeException("Endereço Não encontrado");
+    public Endereco edit(EnderecoDtoInput enderecoDtoInput, Integer idOng, Integer idEnd) {
+        Endereco endVerifica = this.findById(idEnd);
+        if(!endVerifica.getOng().getId().equals(idOng)){
+            throw new EnderecoNaoConrresponde("Id da Ong não conrresponde ao do endereco");
         }
-        Endereco endereco = this.setEndereco(enderecoDtoInput, id);
+
+        Endereco endereco = this.setEndereco(enderecoDtoInput, idOng);
         Estado estado = estadoService.defineEstado(enderecoDtoInput.getEstado());
         Cidade cidade = cidadeService.defineCidade(enderecoDtoInput.getCidade(), estado);
         endereco.setCidade(cidade);
@@ -73,11 +76,13 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     @Transactional( rollbackFor = Exception.class )
     @Override
-    public Boolean delete(Integer id){
-        Endereco endereco = this.findById(id);
-        endereco.setOng(null);
-        enderecoRepository.deleteById(id);
-        if(ifExists(id)){
+    public Boolean delete(Integer idOng, Integer idEnd){
+        Endereco endVerifica = this.findById(idEnd);
+        if(!endVerifica.getOng().getId().equals(idOng)){
+            throw new EnderecoNaoConrresponde("Id da Ong não conrresponde ao do endereco");
+        }
+        enderecoRepository.deleteById(idEnd);
+        if(ifExists(idEnd)){
             return false;
         }
         return true;

@@ -17,17 +17,14 @@ public class EnderecoDtoInput {
     private String numero;
     @NotBlank
     private String CEP;
-    @NotNull
-    private Integer idOng;
 
-    public EnderecoDtoInput(@NotBlank String estado, @NotBlank String cidade, @NotBlank String bairro, @NotBlank String rua, @NotBlank String numero, @NotBlank String CEP, @NotNull Integer idOng) {
+    public EnderecoDtoInput(@NotBlank String estado, @NotBlank String cidade, @NotBlank String bairro, @NotBlank String rua, @NotBlank String numero, @NotBlank String CEP) {
         this.estado = estado;
         this.cidade = cidade;
         this.bairro = bairro;
         this.rua = rua;
         this.numero = numero;
         this.CEP = CEP;
-        this.idOng = idOng;
     }
 
     public String getEstado() {
@@ -78,11 +75,4 @@ public class EnderecoDtoInput {
         this.CEP = CEP;
     }
 
-    public Integer getIdOng() {
-        return idOng;
-    }
-
-    public void setIdOng(Integer idOng) {
-        this.idOng = idOng;
-    }
 }
