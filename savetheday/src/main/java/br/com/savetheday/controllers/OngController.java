@@ -1,10 +1,13 @@
 package br.com.savetheday.controllers;
 
-import br.com.savetheday.dtos.EnderecoDtoInput;
+import br.com.savetheday.dtos.ContaDto;
+import br.com.savetheday.dtos.EnderecoDto;
 import br.com.savetheday.dtos.OngDto;
 import br.com.savetheday.dtos.OngDtoModel;
+import br.com.savetheday.entities.Conta;
 import br.com.savetheday.entities.Endereco;
 import br.com.savetheday.entities.Ong;
+import br.com.savetheday.services.ContaService;
 import br.com.savetheday.services.EnderecoService;
 import br.com.savetheday.services.OngService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ong")
+@RequestMapping("api/ong")
 public class OngController {
 
     @Autowired
@@ -23,6 +26,9 @@ public class OngController {
 
     @Autowired
     private EnderecoService enderecoService;
+
+    @Autowired
+    private ContaService contaService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -52,14 +58,13 @@ public class OngController {
 
     @PostMapping(value = "/{id}/endereco")
     @ResponseStatus(HttpStatus.CREATED)
-    public Endereco salvarEndereco(@Valid @RequestBody EnderecoDtoInput enderecoDtoInput, @PathVariable Integer id) {
-        return enderecoService.save(enderecoDtoInput, id);
+    public Endereco salvarEndereco(@Valid @RequestBody EnderecoDto enderecoDto, @PathVariable Integer id) {
+        return enderecoService.save(enderecoDto, id);
     }
 
-
     @PutMapping( value = "/{id}/endereco/{idEnd}")
-    public Endereco updateEndereco(@Valid @RequestBody EnderecoDtoInput enderecoDtoInput,@PathVariable Integer id, @PathVariable Integer idEnd){
-        return enderecoService.edit(enderecoDtoInput, id, idEnd);
+    public Endereco updateEndereco(@Valid @RequestBody EnderecoDto enderecoDto, @PathVariable Integer id, @PathVariable Integer idEnd){
+        return enderecoService.edit(enderecoDto, id, idEnd);
     }
 
     @DeleteMapping( value = "/{id}/endereco/{idEnd}")
@@ -67,6 +72,19 @@ public class OngController {
         return enderecoService.delete(id, idEnd);
     }
 
+    @PostMapping(value = "/{id}/conta")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Conta saveConta(@Valid @RequestBody ContaDto contaDto, @PathVariable Integer id) {
+        return contaService.save(contaDto, id);
+    }
 
+    @PutMapping( value = "/{id}/conta/{idConta}")
+    public Conta updateConta(@Valid @RequestBody ContaDto contaDto, @PathVariable Integer id, @PathVariable Integer idConta){
+        return contaService.update(contaDto, id, idConta);
+    }
 
+    @DeleteMapping( value = "/{id}/conta/{idConta}")
+    public Boolean delete(@Valid @PathVariable Integer id, @PathVariable Integer idConta){
+        return contaService.delete(id, idConta);
+    }
 }

@@ -8,7 +8,7 @@ import br.com.savetheday.repositories.OngRepository;
 import br.com.savetheday.services.OngService;
 import br.com.savetheday.servicesImplents.exceptions.CnpjCadastrado;
 import br.com.savetheday.servicesImplents.exceptions.EmailCadastrado;
-import br.com.savetheday.servicesImplents.exceptions.EntidadeNaoEncontradaException;
+import br.com.savetheday.servicesImplents.exceptions.EntidadeNaoEncontrada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +49,7 @@ public class OngServiceImpl implements OngService {
 
     public Ong findById(Integer id) {
         return repository.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("Ong não encontrada"));
+                .orElseThrow(() -> new EntidadeNaoEncontrada("Ong não encontrada"));
 
     }
 
@@ -57,7 +57,7 @@ public class OngServiceImpl implements OngService {
     public OngDtoModel find(Integer id) {
         OngDtoModel dto = toModel(this.findById(id));
         if(dto == null){
-            throw new EntidadeNaoEncontradaException("Entidade não encontrada!");
+            throw new EntidadeNaoEncontrada("Entidade não encontrada!");
         }
         return dto;
     }

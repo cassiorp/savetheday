@@ -1,11 +1,11 @@
 package br.com.savetheday.servicesImplents;
 
-import br.com.savetheday.dtos.EnderecoDtoInput;
+import br.com.savetheday.dtos.EnderecoDto;
 import br.com.savetheday.dtos.EnderecoDtoModel;
 import br.com.savetheday.entities.*;
 import br.com.savetheday.services.EnderecoService;
 import br.com.savetheday.servicesImplents.exceptions.EnderecoNaoConrresponde;
-import br.com.savetheday.servicesImplents.exceptions.EntidadeNaoEncontradaException;
+import br.com.savetheday.servicesImplents.exceptions.EntidadeNaoEncontrada;
 import br.com.savetheday.repositories.EnderecoRepository;
 import br.com.savetheday.servicesImplents.exceptions.OngComEndereco;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +32,15 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     @Transactional( rollbackFor = Exception.class )
     @Override
-    public Endereco save(EnderecoDtoInput enderecoDtoInput, Integer id) {
+    public Endereco save(EnderecoDto enderecoDto, Integer id) {
         Ong ong = ongService.findById(id);
         if(ong.getEndereco() != null ){
             throw new OngComEndereco("Ong Com Enderço ja Cadastrado, Apenas permitido edição!");
         }
-        Estado estado = estadoService.defineEstado(enderecoDtoInput.getEstado());
-        Cidade cidade = cidadeService.defineCidade(enderecoDtoInput.getCidade(), estado);
-        Endereco endereco = new Endereco(null, enderecoDtoInput.getBairro(), enderecoDtoInput.getRua(),
-                    enderecoDtoInput.getNumero(), enderecoDtoInput.getCEP(), cidade, ong);
+        Estado estado = estadoService.defineEstado(enderecoDto.getEstado());
+        Cidade cidade = cidadeService.defineCidade(enderecoDto.getCidade(), estado);
+        Endereco endereco = new Endereco(null, enderecoDto.getBairro(), enderecoDto.getRua(),
+                    enderecoDto.getNumero(), enderecoDto.getCEP(), cidade, ong);
 
         ong.setEndereco(endereco);
 
@@ -51,7 +51,7 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     public Endereco findById(Integer id) {
         return enderecoRepository.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("Endereço não encontrado"));
+                .orElseThrow(() -> new EntidadeNaoEncontrada("Endereço não encontrado"));
     }
 
     @Override
@@ -61,15 +61,15 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     @Transactional( rollbackFor = Exception.class )
     @Override
-    public Endereco edit(EnderecoDtoInput enderecoDtoInput, Integer idOng, Integer idEnd) {
+    public Endereco edit(EnderecoDto enderecoDto, Integer idOng, Integer idEnd) {
         Endereco endVerifica = this.findById(idEnd);
         if(!endVerifica.getOng().getId().equals(idOng)){
             throw new EnderecoNaoConrresponde("Id da Ong não conrresponde ao do endereco");
         }
 
-        Endereco endereco = this.setEndereco(enderecoDtoInput, idOng);
-        Estado estado = estadoService.defineEstado(enderecoDtoInput.getEstado());
-        Cidade cidade = cidadeService.defineCidade(enderecoDtoInput.getCidade(), estado);
+        Endereco endereco = this.setEndereco(enderecoDto, idOng);
+        Estado estado = estadoService.defineEstado(enderecoDto.getEstado());
+        Cidade cidade = cidadeService.defineCidade(enderecoDto.getCidade(), estado);
         endereco.setCidade(cidade);
         return enderecoRepository.save(endereco);
     }
@@ -108,13 +108,13 @@ public class EnderecoServiceImpl implements EnderecoService {
 
         return model;
     }
-    private Endereco setEndereco ( EnderecoDtoInput enderecoDtoInput,Integer id) {
+    private Endereco setEndereco (EnderecoDto enderecoDto, Integer id) {
         Endereco endereco = this.findById(id);
         endereco.setId(id);
-        endereco.setBairro(enderecoDtoInput.getBairro());
-        endereco.setRua(enderecoDtoInput.getRua());
-        endereco.setNumero(enderecoDtoInput.getNumero());
-        endereco.setCEP(enderecoDtoInput.getCEP());
+        endereco.setBairro(enderecoDto.getBairro());
+        endereco.setRua(enderecoDto.getRua());
+        endereco.setNumero(enderecoDto.getNumero());
+        endereco.setCEP(enderecoDto.getCEP());
         return endereco;
     }
 }

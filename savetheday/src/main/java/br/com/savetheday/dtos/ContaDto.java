@@ -10,14 +10,11 @@ public class ContaDto {
 
     private String digito;
 
-    private Integer idOng;
-
-    public ContaDto(String nomeBanco, String agencia, String numero, String digito, Integer idOng) {
+    public ContaDto(String nomeBanco, String agencia, String numero, String digito) {
         this.nomeBanco = nomeBanco;
         this.agencia = agencia;
         this.numero = numero;
         this.digito = digito;
-        this.idOng = idOng;
     }
 
     public String getNomeBanco() {
@@ -52,11 +49,4 @@ public class ContaDto {
         this.digito = digito;
     }
 
-    public Integer getIdOng() {
-        return idOng;
-    }
-
-    public void setIdOng(Integer idOng) {
-        this.idOng = idOng;
-    }
 }

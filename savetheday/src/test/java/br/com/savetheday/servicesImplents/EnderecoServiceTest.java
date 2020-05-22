@@ -1,6 +1,6 @@
 package br.com.savetheday.servicesImplents;
 
-import br.com.savetheday.dtos.EnderecoDtoInput;
+import br.com.savetheday.dtos.EnderecoDto;
 import br.com.savetheday.entities.Endereco;
 import br.com.savetheday.entities.Ong;
 import br.com.savetheday.entities.enums.Categoria;
@@ -32,10 +32,10 @@ public class EnderecoServiceTest {
         Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
 
-        EnderecoDtoInput enderecoDtoInput = new EnderecoDtoInput("RS", "Charqueadas",
+        EnderecoDto enderecoDto = new EnderecoDto("RS", "Charqueadas",
                 "Centro", "Boadeseviver", "123", "9674500", ong.getId());
 
-        Endereco endereco = service.save(enderecoDtoInput);
+        Endereco endereco = service.save(enderecoDto);
 
         assertNotNull(endereco.getId());
         assertEquals("Centro", endereco.getBairro());
@@ -48,10 +48,10 @@ public class EnderecoServiceTest {
         Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
 
-        EnderecoDtoInput enderecoDtoInput = new EnderecoDtoInput("RS", "Charqueadas",
+        EnderecoDto enderecoDto = new EnderecoDto("RS", "Charqueadas",
                 "Centro", "Boadeseviver", "123", "9674500", ong.getId());
 
-        Endereco endereco = service.save(enderecoDtoInput);
+        Endereco endereco = service.save(enderecoDto);
         Endereco find = service.findById(endereco.getId());
 
         assertEquals(find.getCEP(), endereco.getCEP());
@@ -62,13 +62,13 @@ public class EnderecoServiceTest {
         Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
 
-        EnderecoDtoInput enderecoDtoInput = new EnderecoDtoInput("RS", "Charqueadas",
+        EnderecoDto enderecoDto = new EnderecoDto("RS", "Charqueadas",
                 "Centro", "Boadeseviver", "123", "9674500", ong.getId());
 
-        EnderecoDtoInput endEdit = new EnderecoDtoInput("RS", "HHHHHHHH",
+        EnderecoDto endEdit = new EnderecoDto("RS", "HHHHHHHH",
                 "Centro", "RRRRR", "123", "9674500",ong.getId());
 
-        Endereco endereco = service.save(enderecoDtoInput);
+        Endereco endereco = service.save(enderecoDto);
 
         endereco = service.edit(endEdit, endereco.getId());
 

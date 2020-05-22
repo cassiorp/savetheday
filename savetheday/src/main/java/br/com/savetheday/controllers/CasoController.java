@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/caso")
+@RequestMapping("api/caso")
 public class CasoController {
 
     @Autowired

@@ -26,7 +26,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	@Autowired
 	private MessageSource messageSource;
 	
-	@ExceptionHandler(EntidadeNaoEncontradaException.class)
+	@ExceptionHandler(EntidadeNaoEncontrada.class)
 	public ResponseEntity<Object> handleEntidadeNaoEncontrada(NegocioException ex, WebRequest request) {
 		var status = HttpStatus.NOT_FOUND;
 		
@@ -101,7 +101,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler(EnderecoNaoConrresponde.class)
-	public ResponseEntity<StandardError> EnderecoNaoConrresponde(EnderecoNaoConrresponde e, HttpServletRequest request) {
+	public ResponseEntity<StandardError> enderecoNaoConrresponde(EnderecoNaoConrresponde e, HttpServletRequest request) {
+		StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+	}
+
+	@ExceptionHandler(ContaNaoConrresponde.class)
+	public ResponseEntity<StandardError> contaNaoConrresponde(ContaNaoConrresponde e, HttpServletRequest request) {
 		StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}

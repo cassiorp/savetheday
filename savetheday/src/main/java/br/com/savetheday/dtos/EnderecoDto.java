@@ -3,7 +3,7 @@ package br.com.savetheday.dtos;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class EnderecoDtoInput {
+public class EnderecoDto {
 
     @NotBlank
     private String estado;
@@ -18,7 +18,7 @@ public class EnderecoDtoInput {
     @NotBlank
     private String CEP;
 
-    public EnderecoDtoInput(@NotBlank String estado, @NotBlank String cidade, @NotBlank String bairro, @NotBlank String rua, @NotBlank String numero, @NotBlank String CEP) {
+    public EnderecoDto(@NotBlank String estado, @NotBlank String cidade, @NotBlank String bairro, @NotBlank String rua, @NotBlank String numero, @NotBlank String CEP) {
         this.estado = estado;
         this.cidade = cidade;
         this.bairro = bairro;

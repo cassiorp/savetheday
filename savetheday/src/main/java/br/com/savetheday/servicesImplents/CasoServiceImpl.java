@@ -7,7 +7,7 @@ import br.com.savetheday.entities.enums.StatusCaso;
 import br.com.savetheday.repositories.CasoRepository;
 import br.com.savetheday.services.CasoService;
 import br.com.savetheday.servicesImplents.util.SendEmailService;
-import br.com.savetheday.servicesImplents.exceptions.EntidadeNaoEncontradaException;
+import br.com.savetheday.servicesImplents.exceptions.EntidadeNaoEncontrada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +49,7 @@ public class CasoServiceImpl implements CasoService {
     @Override
     public Caso findById(Integer id) {
         return repository.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("Caso não encontrado"));
+                .orElseThrow(() -> new EntidadeNaoEncontrada("Caso não encontrado"));
     }
 
 

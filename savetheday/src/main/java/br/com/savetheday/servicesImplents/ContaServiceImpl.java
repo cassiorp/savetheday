@@ -7,7 +7,8 @@ import br.com.savetheday.entities.Ong;
 import br.com.savetheday.repositories.ContaRepository;
 import br.com.savetheday.repositories.OngRepository;
 import br.com.savetheday.services.ContaService;
-import br.com.savetheday.servicesImplents.exceptions.EntidadeNaoEncontradaException;
+import br.com.savetheday.servicesImplents.exceptions.ContaNaoConrresponde;
+import br.com.savetheday.servicesImplents.exceptions.EntidadeNaoEncontrada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,15 +30,15 @@ public class ContaServiceImpl implements ContaService {
 
     @Transactional( rollbackFor = Exception.class )
     @Override
-    public Conta save(ContaDto dto) {
-        Ong ong = ongService.findById(dto.getIdOng());
+    public Conta save(ContaDto dto, Integer id) {
+        Ong ong = ongService.findById(id);
         Conta conta = new Conta(null, dto.getNomeBanco(), dto.getAgencia(),
                                     dto.getNumero(),dto.getDigito(), ong);
 
         ong.getContas().add(conta);
 
         repository.save(conta);
-        ongService.edit(dto.getIdOng(), ong);
+        ongService.edit(id, ong);
         return conta;
     }
 
@@ -48,15 +49,19 @@ public class ContaServiceImpl implements ContaService {
 
     public Conta findById(Integer id) {
         return repository.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("Conta não encontrada"));
+                .orElseThrow(() -> new EntidadeNaoEncontrada("Conta não encontrada"));
     }
 
     @Transactional( rollbackFor = Exception.class )
     @Override
-    public Boolean delete(Integer id){
-        Conta conta = this.findById(id);
-        repository.deleteById(id);
-        if(ifExists(id)){
+    public Boolean delete(Integer idOng, Integer idConta){
+        Ong ong = ongService.findById(idOng);
+        Conta contaVerifica = this.findById(idConta);
+        if(!contaVerifica.getOng().getId().equals(idOng)){
+            throw new ContaNaoConrresponde("Conta não conrresponde a Ong!");
+        }
+        repository.deleteById(idConta);
+        if(ifExists(idConta)){
             return false;
         }
         return true;
@@ -64,9 +69,15 @@ public class ContaServiceImpl implements ContaService {
 
     @Transactional( rollbackFor = Exception.class )
     @Override
-    public Conta update(ContaDto dto, Integer id) {
-        Conta obj = fromDto(dto);
-        Conta newObj = this.findById(id);
+    public Conta update(ContaDto dto, Integer idOng, Integer idConta) {
+        Ong ong = ongService.findById(idOng);
+        Conta contaVerifica = this.findById(idConta);
+        if(!contaVerifica.getOng().getId().equals(idOng)){
+            throw new ContaNaoConrresponde("Conta não conrresponde a Ong!");
+        }
+
+        Conta obj = fromDto(dto, idOng);
+        Conta newObj = this.findById(idConta);
         this.updateData(newObj, obj);
         return repository.save(newObj);
     }
@@ -95,8 +106,8 @@ public class ContaServiceImpl implements ContaService {
         return model;
     }
 
-    public Conta fromDto(ContaDto dto) {
-        Ong ong = ongService.findById(dto.getIdOng());
+    public Conta fromDto(ContaDto dto, Integer id) {
+        Ong ong = ongService.findById(id);
         return new Conta(
                 null, dto.getNomeBanco(), dto.getAgencia(),
                 dto.getNumero(), dto.getDigito(), ong
