@@ -33,6 +33,12 @@ public class CasoController {
         return service.findAll();
     }
 
+    @GetMapping( value = "/{id}")
+    @ResponseBody
+    public CasoDtoModel find(@PathVariable Integer id){
+        return service.find(id);
+    }
+
     @PutMapping( value = "/{id}" )
     @ResponseBody
     public Caso update(@Valid @RequestBody CasoDto dto, @PathVariable Integer id){
@@ -51,7 +57,7 @@ public class CasoController {
        return service.doacao(dto, id);
     }
 
-    @GetMapping( value = "/{cidade}")
+    @GetMapping( value = "/cidade/{cidade}")
     @ResponseBody
     public List<CasoDtoModel> findAllCidade(@PathVariable String cidade){
         return service.filter(cidade);

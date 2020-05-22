@@ -15,5 +15,6 @@ public interface CasoService {
     public String doacao(ValorDoadoDto dto, Integer id);
     public List<CasoDtoModel> filter(String nome);
     public CasoDtoModel find(Integer id);
+    public Caso findById(Integer id);
 
 }

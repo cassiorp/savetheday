@@ -46,6 +46,7 @@ public class CasoServiceImpl implements CasoService {
         return toCollectionModel(repository.findAll());
     }
 
+    @Override
     public Caso findById(Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Caso não encontrado"));
@@ -53,6 +54,7 @@ public class CasoServiceImpl implements CasoService {
 
 
     @Transactional( rollbackFor = Exception.class )
+    @Override
     public Boolean delete(Integer id){
         Caso caso = this.findById(id);
         repository.deleteById(id);
@@ -63,6 +65,7 @@ public class CasoServiceImpl implements CasoService {
     }
 
     @Transactional( rollbackFor = Exception.class )
+    @Override
     public Caso update(CasoDto dto, Integer id) {
         Caso obj = fromDto(dto);
         Caso newObj = this.findById(id);
@@ -70,13 +73,14 @@ public class CasoServiceImpl implements CasoService {
         return repository.save(newObj);
     }
 
+    @Override
     public List<CasoDtoModel> filter( String nome ){
         return toCollectionModel(repository.findByOng_Endereco_Cidade_NomeContaining(nome));
     }
 
     @Override
     public CasoDtoModel find(Integer id) {
-        return null;
+        return toModel(this.findById(id));
     }
 
     @Transactional( rollbackFor = Exception.class )
