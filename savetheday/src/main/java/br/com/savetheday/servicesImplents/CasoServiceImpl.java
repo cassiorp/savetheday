@@ -80,6 +80,7 @@ public class CasoServiceImpl implements CasoService {
     }
 
     @Transactional( rollbackFor = Exception.class )
+    @Override
     public String doacao( ValorDoadoDto dto, Integer id){
         Caso caso = this.findById(id);
         Double valor = dto.getValor();

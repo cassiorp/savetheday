@@ -8,6 +8,9 @@ public class ValorDoadoDto {
         this.valor = valor;
     }
 
+    public ValorDoadoDto() {
+    }
+
     public Double getValor() {
         return valor;
     }

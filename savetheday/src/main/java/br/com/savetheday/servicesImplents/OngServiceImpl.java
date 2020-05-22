@@ -130,8 +130,7 @@ public class OngServiceImpl implements OngService {
         OngDtoModelToCaso model = new OngDtoModelToCaso(
                 ong.getId(), ong.getNome(), ong.getSigla(),
                 ong.getFundacao() == null ? null : ong.getFundacao().toString(),
-                ong.getCnpj(), ong.getFoto(),
-                ong.getTelefone(), ong.getEmail(), ong.getSenha(),
+                ong.getCnpj(), ong.getFoto(),ong.getTelefone(), ong.getEmail(),
                 ong.getCategoria().toString(),enderecoService.toModel(ong.getEndereco()),
                 contaService.toCollectionModel(ong.getContas())
         );

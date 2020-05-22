@@ -12,12 +12,11 @@ public class OngDtoModelToCaso {
     private String foto;
     private String telefone;
     private String email;
-    private String senha;
     private String categoria;
     private EnderecoDtoModel endereco;
     private List<ContaDtoModel> contas;
 
-    public OngDtoModelToCaso(Integer id, String nome, String sigla, String fundacao, String cnpj, String foto, String telefone, String email, String senha, String categoria, EnderecoDtoModel endereco, List<ContaDtoModel> contas) {
+    public OngDtoModelToCaso(Integer id, String nome, String sigla, String fundacao, String cnpj, String foto, String telefone, String email, String categoria, EnderecoDtoModel endereco, List<ContaDtoModel> contas) {
         this.id = id;
         this.nome = nome;
         this.sigla = sigla;
@@ -26,7 +25,6 @@ public class OngDtoModelToCaso {
         this.foto = foto;
         this.telefone = telefone;
         this.email = email;
-        this.senha = senha;
         this.categoria = categoria;
         this.endereco = endereco;
         this.contas = contas;
@@ -94,14 +92,6 @@ public class OngDtoModelToCaso {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public String getCategoria() {
