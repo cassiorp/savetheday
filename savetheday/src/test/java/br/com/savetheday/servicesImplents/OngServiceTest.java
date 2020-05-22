@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,6 +49,7 @@ public class OngServiceTest {
 
     }
 
+    @Transactional
     @Test
     void find(){
         OngDto ongDto = new OngDto("Ong name", "sigla", LocalDate.now(), "02.585.011/0001-06", "foto.jpg", "99999", "mail3@mail", "senha123456", Categoria.MEIO_AMBIENTE);

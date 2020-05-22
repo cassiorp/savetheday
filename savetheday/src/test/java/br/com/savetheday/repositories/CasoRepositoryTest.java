@@ -31,7 +31,7 @@ public class CasoRepositoryTest {
         Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
 
-        Caso caso = new Caso(null,"Caso teste", "descricao teste", 100.0, 0.0, StatusCaso.ABERTO,ong.getEndereco().getCidade().getNome() ,ong);
+        Caso caso = new Caso(null,"Caso teste", "descricao teste", 100.0, 0.0, StatusCaso.ABERTO,ong);
         repository.save(caso);
 
         assertNotNull(ong.getId());
@@ -45,7 +45,7 @@ public class CasoRepositoryTest {
         Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"99.315.223/0001-05", "foto.png", "999999","mail2@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
 
-        Caso caso = new Caso(null,"Caso teste", "descricao teste", 100.0, 0.0, StatusCaso.ABERTO,ong.getEndereco().getCidade().getNome() ,ong);
+        Caso caso = new Caso(null,"Caso teste", "descricao teste", 100.0, 0.0, StatusCaso.ABERTO,ong);
         repository.save(caso);
         Integer tamanhoAntes = Math.toIntExact(repository.count());
 
@@ -64,7 +64,7 @@ public class CasoRepositoryTest {
         Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"77.684.136/0001-92", "foto.png", "999999","mail22@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
 
-        Caso caso = new Caso(null,"Caso teste", "descricao teste", 100.0, 0.0, StatusCaso.ABERTO,ong.getEndereco().getCidade().getNome() ,ong);
+        Caso caso = new Caso(null,"Caso teste", "descricao teste", 100.0, 0.0, StatusCaso.ABERTO,ong);
         repository.save(caso);
 
         repository.deleteById(caso.getId());

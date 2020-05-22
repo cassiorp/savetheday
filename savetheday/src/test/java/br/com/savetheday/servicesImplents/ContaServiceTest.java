@@ -30,8 +30,8 @@ public class ContaServiceTest {
         OngDto ongDto = new OngDto("Ong name", "sigla", LocalDate.now(), "63.097.084/0001-43", "foto.jpg", "99999", "mail@mail", "senha123456", Categoria.MEIO_AMBIENTE);
         Ong ong =  ongService.save(ongDto);
 
-        ContaDto dto = new ContaDto("Banrisul", "0509", "3590000","1", ong.getId());
-        Conta conta = contaService.save(dto);
+        ContaDto dto = new ContaDto("Banrisul", "0509", "3590000","1");
+        Conta conta = contaService.save(dto, ong.getId());
 
         assertNotNull(conta.getId());
         assertEquals("0509", conta.getAgencia());
@@ -42,8 +42,8 @@ public class ContaServiceTest {
         OngDto ongDto = new OngDto("Ong name", "sigla", LocalDate.now(), "96.530.464/0001-89", "foto.jpg", "99999", "mail1@mail", "senha123456", Categoria.MEIO_AMBIENTE);
         Ong ong =  ongService.save(ongDto);
 
-        ContaDto dto = new ContaDto("Banrisul", "0509", "3590000","1", ong.getId());
-        Conta conta = contaService.save(dto);
+        ContaDto dto = new ContaDto("Banrisul", "0509", "3590000","1");
+        Conta conta = contaService.save(dto, ong.getId());
 
         Conta conta2 = contaService.findById(conta.getId());
 
@@ -57,10 +57,10 @@ public class ContaServiceTest {
         OngDto ongDto = new OngDto("Ong name", "sigla", LocalDate.now(), "42.165.812/0001-37", "foto.jpg", "99999", "mail11@mail", "senha123456", Categoria.MEIO_AMBIENTE);
         Ong ong =  ongService.save(ongDto);
 
-        ContaDto dto = new ContaDto("Banrisul", "0509", "3590000","1", ong.getId());
-        Conta conta = contaService.save(dto);
+        ContaDto dto = new ContaDto("Banrisul", "0509", "3590000","1");
+        Conta conta = contaService.save(dto, ong.getId());
 
-        Boolean seDeletou = contaService.delete(conta.getId());
+        Boolean seDeletou = contaService.delete(ong.getId(),conta.getId());
 
         assertEquals(true, seDeletou);
     }
@@ -70,11 +70,11 @@ public class ContaServiceTest {
         OngDto ongDto = new OngDto("Ong name", "sigla", LocalDate.now(), "77.156.472/0001-62", "foto.jpg", "99999", "mail111@mail", "senha123456", Categoria.MEIO_AMBIENTE);
         Ong ong =  ongService.save(ongDto);
 
-        ContaDto dto = new ContaDto("Banrisul", "0509", "3590000","1", ong.getId());
-        Conta conta = contaService.save(dto);
+        ContaDto dto = new ContaDto("Banrisul", "0509", "3590000","1");
+        Conta conta = contaService.save(dto, ong.getId());
 
-        ContaDto dto2 = new ContaDto("Banco do brasil", "0509", "3590000","1", ong.getId());
-        conta = contaService.update(dto2, conta.getId());
+        ContaDto dto2 = new ContaDto("Banco do brasil", "0509", "3590000","1");
+        conta = contaService.update(dto2,ong.getId() ,conta.getId());
 
         assertEquals("Banco do brasil", conta.getNomeBanco());
 

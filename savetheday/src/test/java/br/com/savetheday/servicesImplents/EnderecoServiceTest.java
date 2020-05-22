@@ -33,9 +33,9 @@ public class EnderecoServiceTest {
         ongRepository.save(ong);
 
         EnderecoDto enderecoDto = new EnderecoDto("RS", "Charqueadas",
-                "Centro", "Boadeseviver", "123", "9674500", ong.getId());
+                "Centro", "Boadeseviver", "123", "9674500");
 
-        Endereco endereco = service.save(enderecoDto);
+        Endereco endereco = service.save(enderecoDto, ong.getId());
 
         assertNotNull(endereco.getId());
         assertEquals("Centro", endereco.getBairro());
@@ -49,9 +49,9 @@ public class EnderecoServiceTest {
         ongRepository.save(ong);
 
         EnderecoDto enderecoDto = new EnderecoDto("RS", "Charqueadas",
-                "Centro", "Boadeseviver", "123", "9674500", ong.getId());
+                "Centro", "Boadeseviver", "123", "9674500");
 
-        Endereco endereco = service.save(enderecoDto);
+        Endereco endereco = service.save(enderecoDto, ong.getId());
         Endereco find = service.findById(endereco.getId());
 
         assertEquals(find.getCEP(), endereco.getCEP());
@@ -63,14 +63,14 @@ public class EnderecoServiceTest {
         ongRepository.save(ong);
 
         EnderecoDto enderecoDto = new EnderecoDto("RS", "Charqueadas",
-                "Centro", "Boadeseviver", "123", "9674500", ong.getId());
+                "Centro", "Boadeseviver", "123", "9674500");
 
         EnderecoDto endEdit = new EnderecoDto("RS", "HHHHHHHH",
-                "Centro", "RRRRR", "123", "9674500",ong.getId());
+                "Centro", "RRRRR", "123", "9674500");
 
-        Endereco endereco = service.save(enderecoDto);
+        Endereco endereco = service.save(enderecoDto, ong.getId());
 
-        endereco = service.edit(endEdit, endereco.getId());
+        endereco = service.edit(endEdit,ong.getId() ,endereco.getId());
 
         assertEquals(1, repository.count());
     }
