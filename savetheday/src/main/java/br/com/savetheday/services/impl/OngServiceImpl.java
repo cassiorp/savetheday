@@ -9,10 +9,13 @@ import br.com.savetheday.services.OngService;
 import br.com.savetheday.exceptions.CnpjCadastradoException;
 import br.com.savetheday.exceptions.EmailCadastradoException;
 import br.com.savetheday.exceptions.EntidadeNaoEncontradaException;
+import br.com.savetheday.services.impl.util.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,16 +23,19 @@ import java.util.stream.Collectors;
 public class OngServiceImpl implements OngService {
 
     @Autowired
-    OngRepository repository;
+    private OngRepository repository;
 
     @Autowired
-    EnderecoServiceImpl enderecoService;
+    private EnderecoServiceImpl enderecoService;
 
     @Autowired
-    ContaServiceImpl contaService;
+    private ContaServiceImpl contaService;
 
     @Autowired
-    CasoServiceImpl casoService;
+    private CasoServiceImpl casoService;
+
+    @Autowired
+    private S3Service s3Service;
 
     @Transactional( rollbackFor = Exception.class )
     @Override
@@ -145,4 +151,14 @@ public class OngServiceImpl implements OngService {
                 dto.getSenha(),dto.getCategoria()
         );
     }
+
+    @Override
+    public URI uploadFoto(MultipartFile multipartFile, Integer id){
+        Ong ong = this.findById(id);
+        URI uri = s3Service.uploadFile(multipartFile, ong.getEmail());
+        ong.setFoto(uri.toString());
+        repository.save(ong);
+        return uri;
+    }
+
 }

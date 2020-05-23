@@ -12,9 +12,12 @@ import br.com.savetheday.services.EnderecoService;
 import br.com.savetheday.services.OngService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -54,6 +57,11 @@ public class OngController {
     @DeleteMapping( value = "/{id}")
     public void delete(@Valid @PathVariable Integer id){
          service.delete(id);
+    }
+
+    @PostMapping(value = "/{id}/picture")
+    public void uploadProfilePicture(@RequestParam(name = "file")MultipartFile file, @PathVariable Integer id) {
+        service.uploadFoto(file,id);
     }
 
     @PostMapping(value = "/{id}/endereco")

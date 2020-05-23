@@ -27,6 +27,8 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.3.0.RELEASE'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
+	compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.788'
+	compile group: 'commons-io', name: 'commons-io', version: '2.6'
 	compile "org.flywaydb:flyway-core:6.4.1"
 	runtimeOnly 'com.h2database:h2'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
