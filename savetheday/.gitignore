@@ -114,3 +114,5 @@ gradle-app.setting
 **/build/
 
 application.yaml
+
+.idea
