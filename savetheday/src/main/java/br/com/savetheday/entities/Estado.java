@@ -19,8 +19,8 @@ public class Estado {
     public Estado() {
     }
 
-    public Estado(Integer id, @NotBlank @Size(max = 60) String nome) {
-        this.id = id;
+    public Estado(@NotBlank @Size(max = 60) String nome) {
+        this.id = null;
         this.nome = nome;
     }
 

@@ -3,7 +3,7 @@ package br.com.savetheday.controllers.exceptionhandler;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
-import br.com.savetheday.servicesImplents.exceptions.*;
+import br.com.savetheday.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -26,7 +26,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	@Autowired
 	private MessageSource messageSource;
 	
-	@ExceptionHandler(EntidadeNaoEncontrada.class)
+	@ExceptionHandler(EntidadeNaoEncontradaException.class)
 	public ResponseEntity<Object> handleEntidadeNaoEncontrada(NegocioException ex, WebRequest request) {
 		var status = HttpStatus.NOT_FOUND;
 		
@@ -82,32 +82,32 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		return super.handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
 	}
 
-	@ExceptionHandler(CnpjCadastrado.class)
-	public ResponseEntity<StandardError> cnpjCadastrado(CnpjCadastrado e, HttpServletRequest request) {
+	@ExceptionHandler(CnpjCadastradoException.class)
+	public ResponseEntity<StandardError> cnpjCadastrado(CnpjCadastradoException e, HttpServletRequest request) {
 		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 
-	@ExceptionHandler(EmailCadastrado.class)
-	public ResponseEntity<StandardError> emailCadastrado(EmailCadastrado e, HttpServletRequest request) {
+	@ExceptionHandler(EmailCadastradoException.class)
+	public ResponseEntity<StandardError> emailCadastrado(EmailCadastradoException e, HttpServletRequest request) {
 		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 
-	@ExceptionHandler(OngComEndereco.class)
-	public ResponseEntity<StandardError> ongComEndereco(OngComEndereco e, HttpServletRequest request) {
+	@ExceptionHandler(OngComEnderecoException.class)
+	public ResponseEntity<StandardError> ongComEndereco(OngComEnderecoException e, HttpServletRequest request) {
 		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 
-	@ExceptionHandler(EnderecoNaoConrresponde.class)
-	public ResponseEntity<StandardError> enderecoNaoConrresponde(EnderecoNaoConrresponde e, HttpServletRequest request) {
+	@ExceptionHandler(EnderecoNaoConrrespondeException.class)
+	public ResponseEntity<StandardError> enderecoNaoConrresponde(EnderecoNaoConrrespondeException e, HttpServletRequest request) {
 		StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}
 
-	@ExceptionHandler(ContaNaoConrresponde.class)
-	public ResponseEntity<StandardError> contaNaoConrresponde(ContaNaoConrresponde e, HttpServletRequest request) {
+	@ExceptionHandler(ContaNaoConrrespondeException.class)
+	public ResponseEntity<StandardError> contaNaoConrresponde(ContaNaoConrrespondeException e, HttpServletRequest request) {
 		StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}

@@ -28,7 +28,7 @@ public class EstadoRepositoryTest {
 
     @Test
     void shouldFindName() {
-        Estado estado1 = new Estado(null, "RJ");
+        Estado estado1 = new Estado( "RJ");
         repository.save(estado1);
         Estado estado2 = repository.findByNome(estado1.getNome());
         assertEquals(estado1.getNome(),estado2.getNome());

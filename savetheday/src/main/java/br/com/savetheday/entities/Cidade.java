@@ -23,8 +23,8 @@ public class Cidade {
     public Cidade() {
     }
 
-    public Cidade(Integer id, @NotBlank @Size(max = 60) String nome, Estado estado) {
-        this.id = id;
+    public Cidade(@NotBlank @Size(max = 60) String nome, Estado estado) {
+        this.id = null;
         this.nome = nome;
         this.estado = estado;
     }

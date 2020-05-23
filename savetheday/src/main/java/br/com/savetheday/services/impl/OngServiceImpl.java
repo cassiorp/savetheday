@@ -1,4 +1,4 @@
-package br.com.savetheday.servicesImplents;
+package br.com.savetheday.services.impl;
 
 import br.com.savetheday.dtos.OngDto;
 import br.com.savetheday.dtos.OngDtoModel;
@@ -6,9 +6,9 @@ import br.com.savetheday.dtos.OngDtoModelToCaso;
 import br.com.savetheday.entities.Ong;
 import br.com.savetheday.repositories.OngRepository;
 import br.com.savetheday.services.OngService;
-import br.com.savetheday.servicesImplents.exceptions.CnpjCadastrado;
-import br.com.savetheday.servicesImplents.exceptions.EmailCadastrado;
-import br.com.savetheday.servicesImplents.exceptions.EntidadeNaoEncontrada;
+import br.com.savetheday.exceptions.CnpjCadastradoException;
+import br.com.savetheday.exceptions.EmailCadastradoException;
+import br.com.savetheday.exceptions.EntidadeNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,18 +38,18 @@ public class OngServiceImpl implements OngService {
 
         Ong validaCNPJ = repository.findByCnpj(ong.getCnpj());
         if(validaCNPJ != null){
-            throw new CnpjCadastrado("Cnpj ja cadastrado!");
+            throw new CnpjCadastradoException("Cnpj ja cadastrado!");
         }
         Ong validaEmail = repository.findByEmail(ong.getEmail());
         if(validaEmail != null){
-            throw new EmailCadastrado("Email ja cadastrado!");
+            throw new EmailCadastradoException("Email ja cadastrado!");
         }
         return repository.save(ong);
     }
 
     public Ong findById(Integer id) {
         return repository.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontrada("Ong não encontrada"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Ong não encontrada"));
 
     }
 
@@ -57,7 +57,7 @@ public class OngServiceImpl implements OngService {
     public OngDtoModel find(Integer id) {
         OngDtoModel dto = toModel(this.findById(id));
         if(dto == null){
-            throw new EntidadeNaoEncontrada("Entidade não encontrada!");
+            throw new EntidadeNaoEncontradaException("Entidade não encontrada!");
         }
         return dto;
     }
@@ -140,7 +140,7 @@ public class OngServiceImpl implements OngService {
 
     public Ong fromDto(OngDto dto) {
         return new Ong(
-                null, dto.getNome(),dto.getSigla() ,dto.getFundacao(),
+                dto.getNome(),dto.getSigla() ,dto.getFundacao(),
                 dto.getCnpj(),dto.getFoto() ,dto.getTelefone(), dto.getEmail(),
                 dto.getSenha(),dto.getCategoria()
         );

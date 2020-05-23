@@ -39,8 +39,8 @@ public class Endereco {
     @JoinColumn(name="id_ong")
     private Ong ong;
 
-    public Endereco(Integer id, @NotBlank @Size(max = 60) String bairro, @NotBlank @Size(max = 60) String rua, @NotBlank @Size(max = 20) String numero, @NotBlank @Size(max = 8) String CEP, Cidade cidade, Ong ong) {
-        this.id = id;
+    public Endereco(@NotBlank @Size(max = 60) String bairro, @NotBlank @Size(max = 60) String rua, @NotBlank @Size(max = 20) String numero, @NotBlank @Size(max = 8) String CEP, Cidade cidade, Ong ong) {
+        this.id = null;
         this.bairro = bairro;
         this.rua = rua;
         this.numero = numero;

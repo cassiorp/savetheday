@@ -34,8 +34,8 @@ public class Conta {
     public Conta() {
     }
 
-    public Conta(Integer id, @NotBlank @Size(max = 60) String nomeBanco, @NotBlank @Size(max = 20) String agencia, @NotBlank @Size(max = 30) String numero, @NotBlank @Size(max = 2) String digito, Ong ong) {
-        this.id = id;
+    public Conta(@NotBlank @Size(max = 60) String nomeBanco, @NotBlank @Size(max = 20) String agencia, @NotBlank @Size(max = 30) String numero, @NotBlank @Size(max = 2) String digito, Ong ong) {
+        this.id = null;
         this.nomeBanco = nomeBanco;
         this.agencia = agencia;
         this.numero = numero;

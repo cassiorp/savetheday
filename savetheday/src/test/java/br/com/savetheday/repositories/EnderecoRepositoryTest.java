@@ -38,14 +38,14 @@ public class EnderecoRepositoryTest {
 
     @Test
     void insert() {
-        Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
+        Ong ong = new Ong("AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
-        Estado estado = new Estado(null, "RS");
+        Estado estado = new Estado( "RS");
         estadoRepository.save(estado);
-        Cidade cidade = new Cidade(null, "Charqueadas", estado);
+        Cidade cidade = new Cidade("Charqueadas", estado);
         cidadeRepository.save(cidade);
 
-        Endereco endereco = new Endereco(null, "Centro", "Rua Boa Nova", "123", "96745000", cidade, ong);
+        Endereco endereco = new Endereco( "Centro", "Rua Boa Nova", "123", "96745000", cidade, ong);
         repository.save(endereco);
 
         assertNotNull(endereco.getId());
@@ -56,33 +56,33 @@ public class EnderecoRepositoryTest {
 
     @Test
     void delete() {
-        Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
+        Ong ong = new Ong("AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
-        Estado estado = new Estado(null, "RS");
+        Estado estado = new Estado( "RS");
         estadoRepository.save(estado);
-        Cidade cidade = new Cidade(null, "Charqueadas", estado);
+        Cidade cidade = new Cidade("Charqueadas", estado);
         cidadeRepository.save(cidade);
 
-        Endereco endereco = new Endereco(null, "Centro", "Rua Boa Nova", "123", "96745000", cidade, ong);
+        Endereco endereco = new Endereco( "Centro", "Rua Boa Nova", "123", "96745000", cidade, ong);
         repository.save(endereco);
 
         Integer id = endereco.getId();
         repository.deleteById(id);
 
-        assertEquals(1, repository.count());
+        assertEquals(0, repository.count());
     }
 
 
     @Test
     void upDate() {
-        Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
+        Ong ong = new Ong("AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
-        Estado estado = new Estado(null, "RS");
+        Estado estado = new Estado( "RS");
         estadoRepository.save(estado);
-        Cidade cidade = new Cidade(null, "Charqueadas", estado);
+        Cidade cidade = new Cidade("Charqueadas", estado);
         cidadeRepository.save(cidade);
 
-        Endereco endereco = new Endereco(null, "Centro", "Rua Boa Nova", "123", "96745000", cidade, ong);
+        Endereco endereco = new Endereco( "Centro", "Rua Boa Nova", "123", "96745000", cidade, ong);
         repository.save(endereco);
         Integer tamanhaAntes = Math.toIntExact(repository.count());
 

@@ -23,7 +23,7 @@ public class OngRepositoryTest {
 
     @Test
     void insert(){
-        Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
+        Ong ong = new Ong("AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         repository.save(ong);
 
         assertNotNull(ong.getId());
@@ -32,7 +32,7 @@ public class OngRepositoryTest {
 
     @Test
     void update(){
-        Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
+        Ong ong = new Ong("AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         repository.save(ong);
         Integer tamanhoAntes = Math.toIntExact(repository.count());
 
@@ -46,7 +46,7 @@ public class OngRepositoryTest {
 
     @Test
     void delete(){
-        Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
+        Ong ong = new Ong("AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         repository.save(ong);
 
         repository.deleteById(ong.getId());

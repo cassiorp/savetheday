@@ -1,4 +1,4 @@
-package br.com.savetheday.servicesImplents.exceptions;
+package br.com.savetheday.exceptions;
 
 public class NegocioException extends RuntimeException {
 

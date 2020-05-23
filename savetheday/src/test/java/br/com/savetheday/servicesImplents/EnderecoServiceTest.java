@@ -6,6 +6,7 @@ import br.com.savetheday.entities.Ong;
 import br.com.savetheday.entities.enums.Categoria;
 import br.com.savetheday.repositories.EnderecoRepository;
 import br.com.savetheday.repositories.OngRepository;
+import br.com.savetheday.services.impl.EnderecoServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class EnderecoServiceTest {
 
     @Test
     void save(){
-        Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
+        Ong ong = new Ong( "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
 
         EnderecoDto enderecoDto = new EnderecoDto("RS", "Charqueadas",
@@ -45,7 +46,7 @@ public class EnderecoServiceTest {
 
     @Test
     void ifFindById(){
-        Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
+        Ong ong = new Ong("AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
 
         EnderecoDto enderecoDto = new EnderecoDto("RS", "Charqueadas",
@@ -59,7 +60,7 @@ public class EnderecoServiceTest {
 
     @Test
     void edit(){
-        Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
+        Ong ong = new Ong( "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
 
         EnderecoDto enderecoDto = new EnderecoDto("RS", "Charqueadas",

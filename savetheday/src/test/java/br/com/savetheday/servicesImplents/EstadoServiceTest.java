@@ -2,6 +2,7 @@ package br.com.savetheday.servicesImplents;
 
 import br.com.savetheday.entities.Estado;
 import br.com.savetheday.repositories.EstadoRepository;
+import br.com.savetheday.services.impl.EstadoServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

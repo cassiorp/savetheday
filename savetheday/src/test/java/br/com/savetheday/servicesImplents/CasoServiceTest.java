@@ -6,6 +6,8 @@ import br.com.savetheday.dtos.ValorDoadoDto;
 import br.com.savetheday.entities.Caso;
 import br.com.savetheday.entities.Ong;
 import br.com.savetheday.entities.enums.Categoria;
+import br.com.savetheday.services.impl.CasoServiceImpl;
+import br.com.savetheday.services.impl.OngServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

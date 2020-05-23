@@ -31,8 +31,8 @@ public class Caso {
     public Caso() {
     }
 
-    public Caso(Integer id, @NotBlank String titulo, @NotBlank String descricao, @NotNull Double total, StatusCaso status, Ong ong) {
-        this.id = id;
+    public Caso(@NotBlank String titulo, @NotBlank String descricao, @NotNull Double total, StatusCaso status, Ong ong) {
+        this.id = null;
         this.titulo = titulo;
         this.descricao = descricao;
         this.total = total;
@@ -40,8 +40,8 @@ public class Caso {
         this.ong = ong;
     }
 
-    public Caso(Integer id, @NotBlank String titulo, @NotBlank String descricao, @NotNull Double total, Double coletado, StatusCaso status, Ong ong) {
-        this.id = id;
+    public Caso(@NotBlank String titulo, @NotBlank String descricao, @NotNull Double total, Double coletado, StatusCaso status, Ong ong) {
+        this.id = null;
         this.titulo = titulo;
         this.descricao = descricao;
         this.total = total;

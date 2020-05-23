@@ -28,10 +28,10 @@ public class ContaRepositoryTest {
 
     @Test
     void insert(){
-        Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
+        Ong ong = new Ong("AAPAGE", "APAE", LocalDate.now(),"55.921.638/0001-57", "foto.png", "999999","mail@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
 
-        Conta conta = new Conta(null, "Banrisul", "0509","3955555","2",ong);
+        Conta conta = new Conta("Banrisul", "0509","3955555","2",ong);
         repository.save(conta);
 
         assertNotNull(ong.getId());
@@ -41,10 +41,10 @@ public class ContaRepositoryTest {
 
     @Test
     void update(){
-        Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"28.883.365/0001-20", "foto.png", "999999","mail2@mail","senha123456", Categoria.CULTURA);
+        Ong ong = new Ong("AAPAGE", "APAE", LocalDate.now(),"28.883.365/0001-20", "foto.png", "999999","mail2@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
 
-        Conta conta = new Conta(null, "Banrisul", "0509","3955555","2",ong);
+        Conta conta = new Conta("Banrisul", "0509","3955555","2",ong);
         repository.save(conta);
         Integer tamanhoAntes = Math.toIntExact(repository.count());
 
@@ -58,10 +58,10 @@ public class ContaRepositoryTest {
 
     @Test
     void delete(){
-        Ong ong = new Ong(null, "AAPAGE", "APAE", LocalDate.now(),"77.720.160/0001-30", "foto.png", "999999","mail3@mail","senha123456", Categoria.CULTURA);
+        Ong ong = new Ong("AAPAGE", "APAE", LocalDate.now(),"77.720.160/0001-30", "foto.png", "999999","mail3@mail","senha123456", Categoria.CULTURA);
         ongRepository.save(ong);
 
-        Conta conta = new Conta(null, "Banrisul", "0509","3955555","2",ong);
+        Conta conta = new Conta("Banrisul", "0509","3955555","2",ong);
         repository.save(conta);
 
         repository.deleteById(conta.getId());

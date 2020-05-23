@@ -65,8 +65,8 @@ public class Ong {
     public Ong() {
     }
 
-    public Ong(Integer id, @NotBlank @Size(max = 120) String nome, @NotBlank @Size(max = 120) String sigla, LocalDate fundacao, @CNPJ @NotBlank @Size(max = 18) String cnpj, String foto, String telefone, @Email @NotBlank String email, @NotBlank String senha,Categoria categoria, Endereco endereco, List<Conta> contas, List<Caso> casos) {
-        this.id = id;
+    public Ong(@NotBlank @Size(max = 120) String nome, @NotBlank @Size(max = 120) String sigla, LocalDate fundacao, @CNPJ @NotBlank @Size(max = 18) String cnpj, String foto, String telefone, @Email @NotBlank String email, @NotBlank String senha,Categoria categoria, Endereco endereco, List<Conta> contas, List<Caso> casos) {
+        this.id = null;
         this.nome = nome;
         this.sigla = sigla;
         this.fundacao = fundacao;
@@ -81,8 +81,8 @@ public class Ong {
         this.casos = casos;
     }
 
-    public Ong(Integer id, @NotBlank @Size(max = 120) String nome, @NotBlank @Size(max = 120) String sigla, LocalDate fundacao, @CNPJ @NotBlank @Size(max = 18) String cnpj, String foto, String telefone, @Email @NotBlank String email, @NotBlank String senha, Categoria categoria) {
-        this.id = id;
+    public Ong(@NotBlank @Size(max = 120) String nome, @NotBlank @Size(max = 120) String sigla, LocalDate fundacao, @CNPJ @NotBlank @Size(max = 18) String cnpj, String foto, String telefone, @Email @NotBlank String email, @NotBlank String senha, Categoria categoria) {
+        this.id = null;
         this.nome = nome;
         this.sigla = sigla;
         this.fundacao = fundacao;

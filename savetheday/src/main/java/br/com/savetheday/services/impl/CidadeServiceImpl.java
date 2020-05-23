@@ -1,4 +1,4 @@
-package br.com.savetheday.servicesImplents;
+package br.com.savetheday.services.impl;
 
 import br.com.savetheday.entities.Cidade;
 import br.com.savetheday.entities.Estado;
@@ -15,7 +15,7 @@ public class CidadeServiceImpl {
     public Cidade defineCidade ( String nome, Estado estado) {
         Cidade cidade = repository.findByNomeAndEstado(nome, estado);
         if( cidade == null ){
-            cidade = new Cidade(null,nome, estado );
+            cidade = new Cidade(nome, estado);
             cidade = repository.save(cidade);
         }
         return cidade;

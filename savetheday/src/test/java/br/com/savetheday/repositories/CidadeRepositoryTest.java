@@ -22,9 +22,9 @@ class CidadeRepositoryTest {
 
     @Test
     public void shouldPersistData() {
-        Estado estado = new Estado(null, "RS");
+        Estado estado = new Estado( "RS");
         estadoRepository.save(estado);
-        Cidade cidade = new Cidade(null, "Charqueadas", estado);
+        Cidade cidade = new Cidade( "Charqueadas", estado);
 
         cidadeRepository.save(cidade);
 
@@ -36,10 +36,10 @@ class CidadeRepositoryTest {
 
     @Test
     void shouldFindName() {
-        Estado estado = new Estado(null, "RJ");
+        Estado estado = new Estado("RJ");
         estadoRepository.save(estado);
 
-        Cidade cidade = new Cidade(null, "Charqueadas", estado);
+        Cidade cidade = new Cidade( "Charqueadas", estado);
         cidadeRepository.save(cidade);
 
         Cidade cidade2 = cidadeRepository.findByNome("Charqueadas");
@@ -49,10 +49,10 @@ class CidadeRepositoryTest {
 
     @Test
     void shouldFindNameAndEstado() {
-        Estado estado = new Estado(null, "RJ");
+        Estado estado = new Estado("RJ");
         estadoRepository.save(estado);
 
-        Cidade cidade = new Cidade(null, "Charqueadas", estado);
+        Cidade cidade = new Cidade("Charqueadas", estado);
         cidadeRepository.save(cidade);
 
         Cidade cidade2 = cidadeRepository.findByNomeAndEstado("Charqueadas", estado);

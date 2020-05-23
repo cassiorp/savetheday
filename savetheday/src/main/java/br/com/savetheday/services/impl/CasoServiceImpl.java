@@ -1,4 +1,4 @@
-package br.com.savetheday.servicesImplents;
+package br.com.savetheday.services.impl;
 
 import br.com.savetheday.dtos.*;
 import br.com.savetheday.entities.Caso;;
@@ -6,8 +6,8 @@ import br.com.savetheday.entities.Ong;
 import br.com.savetheday.entities.enums.StatusCaso;
 import br.com.savetheday.repositories.CasoRepository;
 import br.com.savetheday.services.CasoService;
-import br.com.savetheday.servicesImplents.util.SendEmailService;
-import br.com.savetheday.servicesImplents.exceptions.EntidadeNaoEncontrada;
+import br.com.savetheday.services.impl.util.SendEmailService;
+import br.com.savetheday.exceptions.EntidadeNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +32,7 @@ public class CasoServiceImpl implements CasoService {
     public Caso save(CasoDto dto){
         Ong ong = ongService.findById(dto.getIdOng());
 
-        Caso caso = new Caso(null, dto.getTitulo(), dto.getDescricao(), dto.getTotal(), 0.0,StatusCaso.ABERTO,ong);
+        Caso caso = new Caso( dto.getTitulo(), dto.getDescricao(), dto.getTotal(), 0.0,StatusCaso.ABERTO,ong);
 
         ong.getCasos().add(caso);
 
@@ -49,7 +49,7 @@ public class CasoServiceImpl implements CasoService {
     @Override
     public Caso findById(Integer id) {
         return repository.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontrada("Caso não encontrado"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Caso não encontrado"));
     }
 
 
@@ -149,7 +149,7 @@ public class CasoServiceImpl implements CasoService {
     public Caso fromDto(CasoDto dto) {
         Ong ong = ongService.findById(dto.getIdOng());
         return new Caso(
-                null, dto.getTitulo(), dto.getDescricao(), dto.getTotal(),dto.getStatusCaso() ,ong
+                dto.getTitulo(), dto.getDescricao(), dto.getTotal(),dto.getStatusCaso() ,ong
         );
     }
 

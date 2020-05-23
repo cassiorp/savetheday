@@ -1,13 +1,13 @@
-package br.com.savetheday.servicesImplents;
+package br.com.savetheday.services.impl;
 
 import br.com.savetheday.dtos.EnderecoDto;
 import br.com.savetheday.dtos.EnderecoDtoModel;
 import br.com.savetheday.entities.*;
 import br.com.savetheday.services.EnderecoService;
-import br.com.savetheday.servicesImplents.exceptions.EnderecoNaoConrresponde;
-import br.com.savetheday.servicesImplents.exceptions.EntidadeNaoEncontrada;
+import br.com.savetheday.exceptions.EnderecoNaoConrrespondeException;
+import br.com.savetheday.exceptions.EntidadeNaoEncontradaException;
 import br.com.savetheday.repositories.EnderecoRepository;
-import br.com.savetheday.servicesImplents.exceptions.OngComEndereco;
+import br.com.savetheday.exceptions.OngComEnderecoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,11 +35,11 @@ public class EnderecoServiceImpl implements EnderecoService {
     public Endereco save(EnderecoDto enderecoDto, Integer id) {
         Ong ong = ongService.findById(id);
         if(ong.getEndereco() != null ){
-            throw new OngComEndereco("Ong Com Enderço ja Cadastrado, Apenas permitido edição!");
+            throw new OngComEnderecoException("Ong Com Enderço ja Cadastrado, Apenas permitido edição!");
         }
         Estado estado = estadoService.defineEstado(enderecoDto.getEstado());
         Cidade cidade = cidadeService.defineCidade(enderecoDto.getCidade(), estado);
-        Endereco endereco = new Endereco(null, enderecoDto.getBairro(), enderecoDto.getRua(),
+        Endereco endereco = new Endereco(enderecoDto.getBairro(), enderecoDto.getRua(),
                     enderecoDto.getNumero(), enderecoDto.getCEP(), cidade, ong);
 
         ong.setEndereco(endereco);
@@ -51,7 +51,7 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     public Endereco findById(Integer id) {
         return enderecoRepository.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontrada("Endereço não encontrado"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Endereço não encontrado"));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class EnderecoServiceImpl implements EnderecoService {
     public Endereco edit(EnderecoDto enderecoDto, Integer idOng, Integer idEnd) {
         Endereco endVerifica = this.findById(idEnd);
         if(!endVerifica.getOng().getId().equals(idOng)){
-            throw new EnderecoNaoConrresponde("Id da Ong não conrresponde ao do endereco");
+            throw new EnderecoNaoConrrespondeException("Id da Ong não conrresponde ao do endereco");
         }
 
         Endereco endereco = this.setEndereco(enderecoDto, idOng);
@@ -79,7 +79,7 @@ public class EnderecoServiceImpl implements EnderecoService {
     public Boolean delete(Integer idOng, Integer idEnd){
         Endereco endVerifica = this.findById(idEnd);
         if(!endVerifica.getOng().getId().equals(idOng)){
-            throw new EnderecoNaoConrresponde("Id da Ong não conrresponde ao do endereco");
+            throw new EnderecoNaoConrrespondeException("Id da Ong não conrresponde ao do endereco");
         }
         enderecoRepository.deleteById(idEnd);
         if(ifExists(idEnd)){

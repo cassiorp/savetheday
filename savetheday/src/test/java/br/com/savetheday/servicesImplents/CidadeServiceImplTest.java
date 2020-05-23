@@ -4,6 +4,7 @@ import br.com.savetheday.entities.Cidade;
 import br.com.savetheday.entities.Estado;
 import br.com.savetheday.repositories.CidadeRepository;
 import br.com.savetheday.repositories.EstadoRepository;
+import br.com.savetheday.services.impl.CidadeServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class CidadeServiceImplTest {
 
     @Test
     void shouldDefineEstado() {
-        Estado estado = new Estado(null,"Estado Bom Demais");
+        Estado estado = new Estado("Estado Bom Demais");
         repository.save(estado);
         Cidade cidade = service.defineCidade("CidadeTeste", estado);
 

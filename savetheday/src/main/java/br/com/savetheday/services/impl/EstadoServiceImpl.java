@@ -1,4 +1,4 @@
-package br.com.savetheday.servicesImplents;
+package br.com.savetheday.services.impl;
 
 import br.com.savetheday.entities.Estado;
 import br.com.savetheday.repositories.EstadoRepository;
@@ -14,7 +14,7 @@ public class EstadoServiceImpl {
     public Estado defineEstado( String nome ){
         Estado estado = repository.findByNome(nome);
         if(estado == null){
-            estado = new Estado(null, nome);
+            estado = new Estado(nome);
             repository.save(estado);
         }
         return  estado;
