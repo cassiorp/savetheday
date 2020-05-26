@@ -15,7 +15,6 @@ build/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-savetheday/.idea
 .idea
 *.iws
 *.iml
