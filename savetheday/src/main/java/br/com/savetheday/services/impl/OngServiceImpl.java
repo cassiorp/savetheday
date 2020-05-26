@@ -155,6 +155,7 @@ public class OngServiceImpl implements OngService {
     @Override
     public URI uploadFoto(MultipartFile multipartFile, Integer id){
         Ong ong = this.findById(id);
+        String uriString = ong.getNome() + "-" + ong.getId();
         URI uri = s3Service.uploadFile(multipartFile, ong.getEmail());
         ong.setFoto(uri.toString());
         repository.save(ong);
