@@ -11,6 +11,7 @@ import br.com.savetheday.exceptions.EmailCadastradoException;
 import br.com.savetheday.exceptions.EntidadeNaoEncontradaException;
 import br.com.savetheday.services.impl.util.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +38,9 @@ public class OngServiceImpl implements OngService {
     @Autowired
     private S3Service s3Service;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
     @Transactional( rollbackFor = Exception.class )
     @Override
     public Ong save(OngDto dto) {
@@ -50,13 +54,13 @@ public class OngServiceImpl implements OngService {
         if(validaEmail != null){
             throw new EmailCadastradoException("Email ja cadastrado!");
         }
+        ong.setSenha(encoder.encode(ong.getSenha()));
         return repository.save(ong);
     }
 
     public Ong findById(Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Ong não encontrada"));
-
     }
 
     @Override
