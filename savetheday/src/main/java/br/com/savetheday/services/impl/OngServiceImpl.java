@@ -61,12 +61,7 @@ public class OngServiceImpl implements OngService {
         ong.setSenha(encoder.encode(ong.getSenha()));
         return repository.save(ong);
     }
-    public Ong findById2(Integer id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("Ong não encontrada"));
-
-    }
-
+    
     public Ong findById(Integer id) {
         OngDetails user = this.autenticado();
         if(!id.equals(user.getId())){
