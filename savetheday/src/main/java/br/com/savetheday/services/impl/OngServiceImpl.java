@@ -49,7 +49,6 @@ public class OngServiceImpl implements OngService {
     @Override
     public Ong save(OngDto dto) {
         Ong ong = fromDto(dto);
-
         Ong validaCNPJ = repository.findByCnpj(ong.getCnpj());
         if(validaCNPJ != null){
             throw new CnpjCadastradoException("Cnpj ja cadastrado!");
@@ -61,7 +60,7 @@ public class OngServiceImpl implements OngService {
         ong.setSenha(encoder.encode(ong.getSenha()));
         return repository.save(ong);
     }
-    
+
     public Ong findById(Integer id) {
         OngDetails user = this.autenticado();
         if(!id.equals(user.getId())){
@@ -76,7 +75,6 @@ public class OngServiceImpl implements OngService {
 
     @Override
     public OngDtoModel find(Integer id) {
-
         OngDtoModel dto = toModel(this.findById(id));
         if(dto == null){
             throw new EntidadeNaoEncontradaException("Entidade não encontrada!");
@@ -92,14 +90,15 @@ public class OngServiceImpl implements OngService {
     @Transactional( rollbackFor = Exception.class )
     @Override
     public void delete(Integer id){
+        this.findById(id);
         repository.deleteById(id);
     }
 
     @Transactional( rollbackFor = Exception.class )
     @Override
     public Ong update(OngDto dto, Integer id) {
-        Ong obj = fromDto(dto);
         Ong newObj = findById(id);
+        Ong obj = fromDto(dto);
         this.updateData(newObj, obj);
         return repository.save(newObj);
     }
