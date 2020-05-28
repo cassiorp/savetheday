@@ -1,10 +1,9 @@
-package br.com.savetheday.services.impl;
+package br.com.savetheday.security.details;
 
 import br.com.savetheday.entities.Ong;
 import br.com.savetheday.exceptions.EntidadeNaoEncontradaException;
 import br.com.savetheday.repositories.OngRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +21,6 @@ public class MyUserDetailsService implements UserDetailsService {
         if(ong == null){
             throw new EntidadeNaoEncontradaException("Ong não Encontrada!");
         }
-        return new User(ong.getEmail(), ong.getSenha(),new ArrayList<>());
+        return new OngDetails(ong.getId(),ong.getEmail(), ong.getSenha(),new ArrayList<>());
     }
 }

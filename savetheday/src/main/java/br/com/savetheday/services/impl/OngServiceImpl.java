@@ -4,13 +4,16 @@ import br.com.savetheday.dtos.OngDto;
 import br.com.savetheday.dtos.OngDtoModel;
 import br.com.savetheday.dtos.OngDtoModelToCaso;
 import br.com.savetheday.entities.Ong;
+import br.com.savetheday.exceptions.NaoAutorizadaException;
 import br.com.savetheday.repositories.OngRepository;
+import br.com.savetheday.security.details.OngDetails;
 import br.com.savetheday.services.OngService;
 import br.com.savetheday.exceptions.CnpjCadastradoException;
 import br.com.savetheday.exceptions.EmailCadastradoException;
 import br.com.savetheday.exceptions.EntidadeNaoEncontradaException;
 import br.com.savetheday.services.impl.util.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,14 +61,27 @@ public class OngServiceImpl implements OngService {
         ong.setSenha(encoder.encode(ong.getSenha()));
         return repository.save(ong);
     }
-
-    public Ong findById(Integer id) {
+    public Ong findById2(Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Ong não encontrada"));
+
+    }
+
+    public Ong findById(Integer id) {
+        OngDetails user = this.autenticado();
+        if(!id.equals(user.getId())){
+            throw new NaoAutorizadaException("Opereção não autorizada");
+        }
+        if(!repository.existsById(id)){
+            throw new EntidadeNaoEncontradaException("Ong não Encontrada");
+        }
+        Optional<Ong> ong = repository.findById(id);
+        return ong.get();
     }
 
     @Override
     public OngDtoModel find(Integer id) {
+
         OngDtoModel dto = toModel(this.findById(id));
         if(dto == null){
             throw new EntidadeNaoEncontradaException("Entidade não encontrada!");
@@ -164,6 +181,15 @@ public class OngServiceImpl implements OngService {
         ong.setFoto(uri.toString());
         repository.save(ong);
         return uri;
+    }
+
+    private OngDetails autenticado(){
+        try {
+            return (OngDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
 
 }

@@ -17,7 +17,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "ONGS")
-public class Ong implements UserDetails {
+public class Ong {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -200,46 +200,4 @@ public class Ong implements UserDetails {
         this.casos = casos;
     }
 
-
-    @JsonIgnore
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @JsonIgnore
-    @Override
-    public String getPassword() {
-        return this.senha;
-    }
-
-    @JsonIgnore
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

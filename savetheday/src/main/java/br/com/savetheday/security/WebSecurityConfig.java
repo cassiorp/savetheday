@@ -1,6 +1,6 @@
 package br.com.savetheday.security;
 
-import br.com.savetheday.services.impl.MyUserDetailsService;
+import br.com.savetheday.security.details.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -19,6 +20,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	MyUserDetailsService myUserDetailsService;
 
+	@Autowired
+	JwtUtil jwtUtil;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().sameOrigin().and()
@@ -27,9 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST,"/api/ong").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
 				.anyRequest().authenticated()
-				.and().addFilterBefore(new JWTLoginFilter("/api/login", authenticationManager()),
-				UsernamePasswordAuthenticationFilter.class).addFilterBefore(new JWTAuthenticationFilter(),
-				UsernamePasswordAuthenticationFilter.class);
+				.and().addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+				http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, myUserDetailsService));
+				http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
 	@Override
